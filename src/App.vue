@@ -1,7 +1,7 @@
 
 
 <template>
-    <div id='app'>\
+    <div id='app'>
         <router-view/>
     </div>
 </template>
@@ -9,9 +9,10 @@
 
 <script>
     import Test from './Test.vue'
+
     export default {
         name: 'App',
-        components: [Test]
+        components: {Test}
     }
 
 </script>
