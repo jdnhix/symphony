@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import App from './App.vue'
-import Test from './Test.vue'
-import Nav from './Nav.vue'
+import App from './components/App.vue'
+import Home from './components/Home.vue'
+import Room from './components/Room.vue'
+import Nav from './components/Nav.vue'
 
 
 Vue.use(VueRouter)
@@ -12,11 +13,15 @@ const router = new VueRouter({
     routes: [
         {
             path: '/',
-            component: Test
+            component: Home
             // redirect: () => {
             //     return '/home'
             // }
         },
+        {
+            path:'/room',
+            component: Room
+        }
     ]
 
 

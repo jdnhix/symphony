@@ -1,11 +1,10 @@
 <template>
-    <div id="home">
-        <Nav/>
-        <input class='search' placeholder='Search Room'/>
+    <div class="home">
+        <Nav class/>
+        <SearchComponent class='search'/>
 
-        <ul v-for="room in rooms">
-
-            <li class="room-card">
+        <ul>
+            <li @click="goToRoom(room)" v-for="room in rooms" class="room-card">
                 <p>{{room.roomName}}</p>
                 <p>{{room.createdBy}}</p>
                 <p>{{room.participants}}</p>
@@ -25,9 +24,10 @@
 
 <script>
     import Nav from './Nav.vue'
+    import SearchComponent from './SearchComponent.vue'
     export default {
-        name: 'Test',
-        components: {Nav},
+        name: 'Home',
+        components: {SearchComponent, Nav},
         data() {
             return {
                 roomsList: null
@@ -37,6 +37,13 @@
             rooms() {
                 return this.$store.state.room.roomList || []
             }
+        },
+        methods: {
+            goToRoom (room) {
+                const data = room
+                this.$router.push({ path: '/room', query: {roomId: data._id} })
+            }
+
         },
         mounted() {
             this.$store
@@ -49,16 +56,16 @@
 
 <style scoped>
 
-    #home {
+    .home {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: space-evenly;
     }
 
     .search {
-        margin: 5%;
+        margin: 50px 0 20px 0;
     }
+
 
     .room-card {
         display: flex;
@@ -66,17 +73,22 @@
         justify-content: space-evenly;
         align-items: center;
         height: 100px;
-        margin: 0;
+        margin: 20px 0;
         border: 1px solid black;
         border-radius: 5px;
-        box-shadow: 0 0 8px 1px rgba(0,0,0,0.16);
+    }
 
+    .room-card:hover {
+        cursor: pointer;
+        box-shadow: 0 0 8px 1px rgba(0,0,0,0.16);
     }
 
     ul {
         width: 75%;
         max-width: 1000px;
     }
+
+
 
 
 
