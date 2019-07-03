@@ -3,17 +3,19 @@
 
         <div class='header'>
             <div class="header__title">
-                <h1>Room Name</h1>
-                <h3>Host</h3>
+                <h1>{{room.roomName}}</h1>
+                <h3>{{room.hostName}}</h3>
             </div>
-            <p class="'header__audience-count">0</p>
+            <p class="'header__audience-count">{{room.audienceSize}}</p>
         </div>
 
         <div class="song">
-            <h2 class="song__title">Song Title</h2>
-            <h3 class="song__artist">Song Artist</h3>
+            <h2 class="song__title">{{room.queue[0].songName}}</h2>
+            <h3 class="song__artist">{{room.queue[0].artistName}}</h3>
 
-            <div class="song__cover-art"></div>
+            <img :src="room.queue[0].coverArt" class="song__cover-art">
+
+            </img>
 
 <!--            todo make this its own comp?-->
             <div class="progression"></div>
@@ -28,8 +30,9 @@
 
 <script>
     export default {
-        name: 'RoomState'
-        //todo add data
+        name: 'RoomState',
+        //todo ask cameron if this is the best way to do this
+        props: ['room']
     }
 </script>
 
@@ -57,13 +60,16 @@
     }
 
     .song__cover-art {
-        width: 85%;
-        padding-top: 85%;
+        width: 75%;
+        height: 55%;
+        max-width: 350px;
+        max-height: 350px;
+        /*padding-top: 75%;*/
         background-color: gray;
     }
 
     .progression {
-        width: 85%;
+        width: 75%;
         height: 40px;
         margin-top: 10%;
         background-color: gray;

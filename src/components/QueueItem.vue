@@ -1,22 +1,18 @@
 <template>
     <div class="card">
-        <div class="cover-art">
+            <img :src= 'song.coverArt' class="cover-art"/>
 
-        </div>
 
         <div class="song-info">
-            <p class="song-info__title">Title</p>
-            <p class="song-info__artist">Artist</p>
+            <p class="song-info__title">{{song.songName}}</p>
+            <p class="song-info__artist">{{song.artistName}}</p>
         </div>
 
         <div class="rank">
-<!--            put up vote image here-->
-            <p class="rank__number">0</p>
-<!--            put down vote image here-->
+            <img @click="changeRank()" src="../assets/img/upload.svg" class='arrow'/>
+            <p class="rank__number">{{song.rank}}</p>
+            <img src="../assets/img/download.svg" class='arrow'/>
         </div>
-
-
-
 
     </div>
 
@@ -25,6 +21,17 @@
 <script>
     export default {
         name: 'QueueItem',
+        data (){
+            rank: song.rank
+        },
+        props: ['song'],
+        methods : {
+            changeRank (dir) {
+                const direction = dir
+
+            }
+
+        }
         // data() {
         //
         // }
@@ -37,18 +44,32 @@
 
     .card {
         width: 100%;
+        height: 100%;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: space-around;
         box-shadow: 0 0 8px 1px rgba(0,0,0,0.16);
         align-items: center;
+        margin: 10px 0;
     }
 
     .cover-art{
-        background-color: gray;
-        width: 80%;
-        height: auto;
+        width: 20%;
+    }
 
+    .rank {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+
+    .arrow {
+        width: 15px;
+    }
+
+    .arrow:hover{
+        cursor: pointer;
     }
 
 

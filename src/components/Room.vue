@@ -1,7 +1,7 @@
 <template>
     <div class="room">
-        <RoomState/>
-        <Queue/>
+        <RoomState v-bind:room = room[0] />
+        <Queue v-bind:queue = room[0].queue />
     </div>
 
 

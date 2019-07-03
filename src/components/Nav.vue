@@ -5,21 +5,18 @@
 
         <div class='button'>
 
-            <router-link to="/room">
-                <button class='button__item'>About</button>
-            </router-link>
-
+            <button class='button__item'>About</button>
             <button v-on:click="login" class='button__item'>Create Room</button>
+
         </div>
 
     </div>
 </template>
 
 
-
-
 <script>
     import Vue from 'vue'
+
     export default {
         name: 'Nav',
         methods: {
@@ -35,8 +32,6 @@
     }
 
 </script>
-
-
 
 
 <style scoped lang="scss">

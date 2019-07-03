@@ -28,6 +28,13 @@ module.exports = env => {
                     loader: 'vue-loader',
                 },
                 {
+                    test: /\.(png|jpg|gif|svg)$/,
+                    loader: 'file-loader',
+                    options: {
+                        outputPath: 'img/',
+                    },
+                },
+                {
                     test: /\.(sa|sc|c)ss$/,
                     use: [
                         'style-loader',

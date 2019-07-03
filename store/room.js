@@ -16,7 +16,7 @@ export default {
     },
     actions: {
         getRooms({commit, dispatch}, params) {
-            const api = `${Vue.$symphonyConfig.host}/getAllRooms`
+            const api = `${Vue.$symphonyConfig.host}/room`
 
             return Vue.$net.get(api, params).then(res => {
                 console.log(res)
@@ -25,7 +25,7 @@ export default {
             })
         },
         getRoom({commit, dispatch}, params) {
-            const api = `${Vue.$symphonyConfig.host}/getRoomByID`
+            const api = `${Vue.$symphonyConfig.host}/room`
 
             return Vue.$net.get(api, params).then( res => {
                 console.log(res)

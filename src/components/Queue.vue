@@ -4,10 +4,11 @@
             <SearchComponent/>
         </div>
 
-        <div class="queue-list">
-            <QueueItem/>
-
-        </div>
+        <ul class="queue-list">
+            <li v-for="song in queue">
+                <QueueItem v-bind:song = song />
+            </li>
+        </ul>
 
 
     </div>
@@ -20,9 +21,26 @@
 <script>
     import SearchComponent from './SearchComponent.vue'
     import QueueItem from './QueueItem.vue'
+    import Vue from 'vue'
+
     export default {
         name: 'Queue',
-        components: {QueueItem, SearchComponent}
+        components: {QueueItem, SearchComponent},
+        props: ['queue'],
+        // data () {
+        //     return {
+        //         queue: this.q
+        //     }
+        // },
+        // watch: {
+        //     'queue' : {
+        //         immediate: true,
+        //         handler(newVal, oldVal) {
+        //             this.queue = newVal.queue
+        //             // console.log(newVal)
+        //         }
+        //     }
+        // },
     }
 </script>
 
@@ -40,11 +58,17 @@
 
 
     .search-container {
+        margin-top: 5%;
         width: 75%;
     }
 
     .queue-list{
         width: 80%;
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
 

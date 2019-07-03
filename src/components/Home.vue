@@ -6,8 +6,8 @@
         <ul>
             <li @click="goToRoom(room)" v-for="room in rooms" class="room-card">
                 <p>{{room.roomName}}</p>
-                <p>{{room.createdBy}}</p>
-                <p>{{room.participants}}</p>
+                <p>{{room.hostName}}</p>
+                <p>{{room.audienceSize}}</p>
                 <p>Current Song</p>
                 <p>Lock img</p>
             </li>
