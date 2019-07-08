@@ -2,13 +2,15 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import room from './room.js'
 import user from './user.js'
+import queue from './queue.js'
 
 
 Vue.use(Vuex)
 
 const modules = {
     room,
-    user
+    user,
+    queue
 }
 
 const store = new Vuex.Store({modules})

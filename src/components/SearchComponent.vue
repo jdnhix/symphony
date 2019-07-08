@@ -1,13 +1,36 @@
 <template>
     <div class='searchComponent'>
-            <input placeholder="Search" title="Search" type="text" class='search__box'/>
+            <input v-model="text"  placeholder="Search" title="Search" type="text" class='search__box'/>
     </div>
 </template>
 
 
 <script>
     export default {
-        name: 'SearchComponent'
+        name: 'SearchComponent',
+        props: {
+            value: {
+                type: String,
+                default: null
+            }
+        },
+        data () {
+            return {
+                text: 'test'
+            }
+        },
+        watch: {
+            value: {
+                immediate: true,
+                handler(newVal, oldVal) {
+                    console.log(newVal)
+                    this.text = newVal
+                }
+            },
+            text(value) {
+                this.$emit('input', value)
+            }
+        }
     }
 </script>
 

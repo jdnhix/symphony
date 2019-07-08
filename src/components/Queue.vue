@@ -1,14 +1,20 @@
 <template>
     <div class="queue">
         <div class="search-container">
-            <SearchComponent/>
+            <SearchComponent v-model="searchParam" :value="searchParam"/>
         </div>
 
-        <ul class="queue-list">
+        <ul  class="queue-list">
 
-            <li v-if="room" v-for="song in room[0].queue">
+            <li v-if="room && !searchParam" v-for="song in room[0].queue">
                 <QueueItem v-bind:song=song />
             </li>
+
+            <li v-if="searchResults && searchParam" v-for="song in searchResults" @click="addSongToQueue(song)">
+                <!-- todo add style -->
+                {{song.name}}
+            </li>
+
 
         </ul>
 
@@ -27,15 +33,46 @@
         name: 'Queue',
         components: {QueueItem, SearchComponent},
         props: ['roomId'],
+        data () {
+            return {
+                searchParam: null
+            }
+        },
         mounted() {
-            console.log(this.roomId)
-            this.$store.dispatch('getRoom', {params: {roomId: this.roomId}})
+            this.getRoom()
         },
         computed: {
             room() {
                 return this.$store.state.room.selectedRoom || []
+            },
+            searchResults () {
+
+                return this.$store.state.queue.searchResults && this.$store.state.queue.searchResults.tracks.items || []
             }
+        },
+        watch: {
+            searchParam : {
+                handler(newVal, oldVal) {
+                    this.$store.dispatch('getSearchResults', {params: {songName: this.searchParam}})
+                }
+            }
+        },
+        methods: {
+            addSongToQueue(song) {
+                console.log(song)
+                this.$store.dispatch('addSongToQueue', {params: {}}).then(() => {
+                    this.searchParams = null
+                    this.getRoom()
+                })
+            },
+            getRoom() {
+                this.$store.dispatch('getRoom', {params: {roomId: this.roomId}})
+            }
+
+
         }
+
+
     }
 </script>
 

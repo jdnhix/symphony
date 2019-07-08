@@ -9,10 +9,14 @@
 
 <script>
     import Home from './Home.vue'
+    import Room from './Room.vue'
 
     export default {
         name: 'App',
-        components: {Home}
+        components: {Home, Room},
+        mounted () {
+            window.onSpotifyWebPlaybackSDKReady = () => {}
+        }
     }
 
 </script>

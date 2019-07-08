@@ -9,9 +9,9 @@
         </div>
 
         <div class="rank">
-            <img @click="changeRank()" src="../assets/img/upload.svg" class='arrow'/>
-            <p class="rank__number">{{song.rank}}</p>
-            <img src="../assets/img/download.svg" class='arrow'/>
+            <img @click="changeRank('up')" src="../assets/img/upload.svg" class='arrow'/>
+            <p class="rank__number">{{ rank }}</p>
+            <img @click="changeRank('down')" src="../assets/img/download.svg" class='arrow'/>
         </div>
 
     </div>
@@ -21,20 +21,23 @@
 <script>
     export default {
         name: 'QueueItem',
-        data (){
-            rank: song.rank
+        data () {
+            rank = song.rank
         },
         props: ['song'],
         methods : {
             changeRank (dir) {
                 const direction = dir
+                if('up') {
+                    ++rank
+                } else {
+                    --rank
+                }
 
             }
 
         }
-        // data() {
-        //
-        // }
+
     }
 
 </script>

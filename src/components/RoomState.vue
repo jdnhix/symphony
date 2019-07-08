@@ -9,18 +9,15 @@
             <p class="'header__audience-count">{{room[0].audienceSize}}</p>
         </div>
 
+        <WebPlayer/>
+
+
+
+
+
+
         <div class="song">
-            <h2 class="song__title">{{room[0].queue[0].songName}}</h2>
-            <h3 class="song__artist">{{room[0].queue[0].artistName}}</h3>
-
-            <img :src="room[0].queue[0].coverArt" class="song__cover-art">
-
-
-
-<!--            todo make this its own comp?-->
-            <div class="progression"></div>
-
-
+            <div class="progression">Song Progression</div>
         </div>
 
     </div>
@@ -29,8 +26,10 @@
 
 
 <script>
+    import WebPlayer from './WebPlayer.vue'
     export default {
         name: 'RoomState',
+        components: {WebPlayer},
         //todo ask cameron if this is the best way to do this
         props: ['roomId'],
         created() {
