@@ -1,7 +1,7 @@
 <template>
     <div class="room">
-        <RoomState v-bind:room = room[0] />
-        <Queue v-bind:queue = room[0].queue />
+        <RoomState v-bind:roomId = this.roomId />
+        <Queue v-bind:roomId = this.roomId />
     </div>
 
 
@@ -27,14 +27,6 @@
                     this.roomId = newVal.roomId
                 }
             }
-        },
-        computed: {
-            room() {
-                return this.$store.state.room.selectedRoom || []
-            }
-        },
-        mounted() {
-            this.$store.dispatch('getRoom', {params: {roomId: this.roomId}})
         }
     }
 </script>

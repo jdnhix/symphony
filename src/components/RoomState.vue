@@ -3,19 +3,19 @@
 
         <div class='header'>
             <div class="header__title">
-                <h1>{{room.roomName}}</h1>
-                <h3>{{room.hostName}}</h3>
+                <h1>{{room[0].roomName}}</h1>
+                <h3>{{room[0].hostName}}</h3>
             </div>
-            <p class="'header__audience-count">{{room.audienceSize}}</p>
+            <p class="'header__audience-count">{{room[0].audienceSize}}</p>
         </div>
 
         <div class="song">
-            <h2 class="song__title">{{room.queue[0].songName}}</h2>
-            <h3 class="song__artist">{{room.queue[0].artistName}}</h3>
+            <h2 class="song__title">{{room[0].queue[0].songName}}</h2>
+            <h3 class="song__artist">{{room[0].queue[0].artistName}}</h3>
 
-            <img :src="room.queue[0].coverArt" class="song__cover-art">
+            <img :src="room[0].queue[0].coverArt" class="song__cover-art">
 
-            </img>
+
 
 <!--            todo make this its own comp?-->
             <div class="progression"></div>
@@ -32,7 +32,16 @@
     export default {
         name: 'RoomState',
         //todo ask cameron if this is the best way to do this
-        props: ['room']
+        props: ['roomId'],
+        created() {
+            console.log(this.roomId)
+            this.$store.dispatch('getRoom', {params: {roomId: this.roomId}})
+        },
+        computed: {
+            room() {
+                return this.$store.state.room.selectedRoom || []
+            }
+        }
     }
 </script>
 

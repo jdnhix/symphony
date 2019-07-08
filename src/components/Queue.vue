@@ -5,17 +5,17 @@
         </div>
 
         <ul class="queue-list">
-            <li v-for="song in queue">
-                <QueueItem v-bind:song = song />
+
+            <li v-if="room" v-for="song in room[0].queue">
+                <QueueItem v-bind:song=song />
             </li>
+
         </ul>
 
 
     </div>
 
 </template>
-
-
 
 
 <script>
@@ -26,21 +26,16 @@
     export default {
         name: 'Queue',
         components: {QueueItem, SearchComponent},
-        props: ['queue'],
-        // data () {
-        //     return {
-        //         queue: this.q
-        //     }
-        // },
-        // watch: {
-        //     'queue' : {
-        //         immediate: true,
-        //         handler(newVal, oldVal) {
-        //             this.queue = newVal.queue
-        //             // console.log(newVal)
-        //         }
-        //     }
-        // },
+        props: ['roomId'],
+        mounted() {
+            console.log(this.roomId)
+            this.$store.dispatch('getRoom', {params: {roomId: this.roomId}})
+        },
+        computed: {
+            room() {
+                return this.$store.state.room.selectedRoom || []
+            }
+        }
     }
 </script>
 
@@ -49,7 +44,7 @@
     .queue {
         width: 35%;
         height: 85%;
-        box-shadow: 0 0 8px 1px rgba(0,0,0,0.16);
+        box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.16);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -62,7 +57,7 @@
         width: 75%;
     }
 
-    .queue-list{
+    .queue-list {
         width: 80%;
         list-style-type: none;
         padding: 0;

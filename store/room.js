@@ -19,7 +19,7 @@ export default {
             const api = `${Vue.$symphonyConfig.host}/room`
 
             return Vue.$net.get(api, params).then(res => {
-                console.log(res)
+                // console.log(res)
                 commit('commitRooms', res.data)
                 return res
             })
@@ -28,7 +28,7 @@ export default {
             const api = `${Vue.$symphonyConfig.host}/room`
 
             return Vue.$net.get(api, params).then( res => {
-                console.log(res)
+                // console.log(res)
                 commit('commitRoom', res.data)
                 return res
             })
