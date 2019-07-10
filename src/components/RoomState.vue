@@ -9,7 +9,7 @@
             <p class="'header__audience-count">{{room[0].audienceSize}}</p>
         </div>
 
-        <WebPlayer/>
+<!--        <WebPlayer/>-->
 
 
 

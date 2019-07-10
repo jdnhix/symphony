@@ -23,7 +23,6 @@
             value: {
                 immediate: true,
                 handler(newVal, oldVal) {
-                    console.log(newVal)
                     this.text = newVal
                 }
             },

@@ -9,10 +9,15 @@
         </div>
 
         <div class="rank">
-            <img @click="changeRank('up')" src="../assets/img/upload.svg" class='arrow'/>
-            <p class="rank__number">{{ rank }}</p>
-            <img @click="changeRank('down')" src="../assets/img/download.svg" class='arrow'/>
+
+            <img @click="changeSongRank('inc')" src="../assets/img/upload.svg" class='arrow'/>
+            <p class="rank__number">{{ song.rank }}</p>
+            <img @click="changeSongRank('dec')" src="../assets/img/download.svg" class='arrow'/>
+
+
         </div>
+
+        <div @click="removeQueueItem()" class="card__remove">X</div>
 
     </div>
 
@@ -21,20 +26,53 @@
 <script>
     export default {
         name: 'QueueItem',
+        props: ['song', 'roomId'],
         data () {
-            rank = song.rank
+          return {
+              isVotedUp: false,
+              isVotedDown: false
+          }
         },
-        props: ['song'],
         methods : {
-            changeRank (dir) {
-                const direction = dir
-                if('up') {
-                    ++rank
-                } else {
-                    --rank
-                }
+            removeQueueItem() {
+                this.$store.dispatch('removeQueueItem', {
+                    params: {
+                        roomId: this.roomId,
+                        songId: this.song.songId,
+                    }
+                }).then(() => {
+                    this.getRoom()
+                })
+            },
+            getRoom() {
+                //todo does it matter that i have this method here instead of in queue.vue
+                this.$store.dispatch('getRoom', {params: {roomId: this.roomId}})
+            },
+            sortQueue(){
+                this.$store.dispatch('sort', {
+                    params: {
+                        roomId: this.roomId
+                    }
+                }).then(() => {
+                    this.getRoom()
+                })
+            },
+            changeSongRank(dir) {
+                this.isVotedUp = true
 
-            }
+
+
+                this.$store.dispatch('changeSongRank', {
+                    params: {
+                        roomId: this.roomId,
+                        songId: this.song.songId,
+                        direction: dir
+                    }
+                }).then(() => {
+                    this.sortQueue()
+                })
+            },
+
 
         }
 
@@ -46,7 +84,7 @@
 <style>
 
     .card {
-        width: 100%;
+        width: 95%;
         height: 100%;
         display: flex;
         flex-direction: row;
@@ -75,6 +113,13 @@
         cursor: pointer;
     }
 
+    .card__remove {
+        color: red;
 
+    }
+
+    .card__remove:hover {
+        cursor: pointer;
+    }
 
 </style>

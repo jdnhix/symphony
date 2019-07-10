@@ -6,13 +6,12 @@
 
         <ul  class="queue-list">
 
-            <li v-if="room && !searchParam" v-for="song in room[0].queue">
-                <QueueItem v-bind:song=song />
+            <li v-if="room && !searchParam" v-for="song in room[0].queue" class='list-card'>
+                <QueueItem v-bind:song=song :roomId=roomId />
             </li>
 
-            <li v-if="searchResults && searchParam" v-for="song in searchResults" @click="addSongToQueue(song)">
-                <!-- todo add style -->
-                {{song.name}}
+            <li v-if="searchResults && searchParam" v-for="song in searchResults" @click="addSongToQueue(song)" class="search-item">
+                {{song.name}} - {{song.artists[0].name}}
             </li>
 
 
@@ -46,7 +45,6 @@
                 return this.$store.state.room.selectedRoom || []
             },
             searchResults () {
-
                 return this.$store.state.queue.searchResults && this.$store.state.queue.searchResults.tracks.items || []
             }
         },
@@ -59,14 +57,30 @@
         },
         methods: {
             addSongToQueue(song) {
-                console.log(song)
-                this.$store.dispatch('addSongToQueue', {params: {}}).then(() => {
-                    this.searchParams = null
-                    this.getRoom()
+                this.$store.dispatch('addSongToQueue', {
+                    params: {
+                        roomId: this.roomId,
+                        songName: song.name,
+                        artistName: song.artists[0].name,
+                        songId: song.uri,
+                        coverArt: song.album.images[0].url
+                    }
+                }).then(() => {
+                    this.searchParam = ''
+                    this.sortQueue()
                 })
             },
             getRoom() {
                 this.$store.dispatch('getRoom', {params: {roomId: this.roomId}})
+            },
+            sortQueue(){
+                this.$store.dispatch('sort', {
+                    params: {
+                        roomId: this.roomId
+                    }
+                }).then(() => {
+                    this.getRoom()
+                })
             }
 
 
@@ -88,6 +102,12 @@
 
     }
 
+    .list-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
 
     .search-container {
         margin-top: 5%;
@@ -101,7 +121,21 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        overflow: scroll;
     }
 
+    .search-item{
+        border: 1px solid black;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        padding-left: 5px;
+
+
+    }
+
+    .search-item:hover {
+        cursor: pointer;
+    }
 
 </style>
