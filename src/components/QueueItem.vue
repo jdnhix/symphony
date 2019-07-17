@@ -10,7 +10,11 @@
 
         <div class="rank">
 
-            <img @click="changeSongRank('inc')" src="../assets/img/upload.svg" class='arrow'/>
+            <img v-if="!isVotedUp" @click="changeSongRank('inc')" src="../assets/img/upload.svg" class='arrow'/>
+
+            <img v-if="isVotedUp" @click="changeSongRank('inc')" src="../assets/img/upload.svg" class='arrow voted'/>
+
+
             <p class="rank__number">{{ song.rank }}</p>
             <img @click="changeSongRank('dec')" src="../assets/img/download.svg" class='arrow'/>
 
@@ -58,9 +62,8 @@
                 })
             },
             changeSongRank(dir) {
+                this.$emit('addVotedSong', this.song)
                 this.isVotedUp = true
-
-
 
                 this.$store.dispatch('changeSongRank', {
                     params: {
@@ -102,7 +105,6 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-
     }
 
     .arrow {
@@ -115,11 +117,14 @@
 
     .card__remove {
         color: red;
-
     }
 
     .card__remove:hover {
         cursor: pointer;
+    }
+
+    .voted {
+        background: green;
     }
 
 </style>

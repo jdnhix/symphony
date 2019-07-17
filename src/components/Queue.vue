@@ -6,8 +6,10 @@
 
         <ul  class="queue-list">
 
-            <li v-if="room && !searchParam" v-for="song in room[0].queue" class='list-card'>
-                <QueueItem v-bind:song=song :roomId=roomId />
+            <li v-if="room && !searchParam && queue" v-for="song in queue" class='list-card'>
+                <QueueItem
+                        :add-voted-song = addVotedSong
+                        v-bind:song=song :roomId=roomId />
             </li>
 
             <li v-if="searchResults && searchParam" v-for="song in searchResults" @click="addSongToQueue(song)" class="search-item">
@@ -46,6 +48,9 @@
             },
             searchResults () {
                 return this.$store.state.queue.searchResults && this.$store.state.queue.searchResults.tracks.items || []
+            },
+            queue() {
+                return this.$store.state.queue.queue
             }
         },
         watch: {
@@ -56,19 +61,19 @@
             }
         },
         methods: {
-            addSongToQueue(song) {
-                this.$store.dispatch('addSongToQueue', {
-                    params: {
-                        roomId: this.roomId,
-                        songName: song.name,
-                        artistName: song.artists[0].name,
-                        songId: song.uri,
-                        coverArt: song.album.images[0].url
-                    }
-                }).then(() => {
-                    this.searchParam = ''
-                    this.sortQueue()
-                })
+            async addSongToQueue(addedSong) {
+                let song = {
+                    roomId: this.roomId,
+                    songName: addedSong.name,
+                    artistName: addedSong.artists[0].name,
+                    songId: addedSong.uri,
+                    coverArt: addedSong.album.images[0].url,
+                    explicit: addedSong.explicit
+                }
+
+                let response = await this.$socket.emit('addSongToQueue', song)
+                this.searchParam = ''
+                this.sortQueue() //todo check if this works
             },
             getRoom() {
                 this.$store.dispatch('getRoom', {params: {roomId: this.roomId}})
@@ -81,9 +86,10 @@
                 }).then(() => {
                     this.getRoom()
                 })
+            },
+            addVotedSong(song) {
+                this.votedSongs.push(song)
             }
-
-
         }
 
 
@@ -126,7 +132,7 @@
 
     .search-item{
         border: 1px solid black;
-        height: 30px;
+        height: 50px;
         display: flex;
         align-items: center;
         padding-left: 5px;

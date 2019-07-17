@@ -3,12 +3,20 @@ import Vue from 'vue'
 
 export default {
     state :{
-        searchResults: null
+        searchResults: null,
+        queue: []
     },
     mutations: {
         commitSearchResults(state, payload) {
             state.searchResults = payload
+        },
+        pushQueue(state, payload) {
+            state.queue.push(payload)
+        },
+        setQueue(state, payload) {
+            state.queue = payload
         }
+
     },
     actions: {
         getSearchResults({commit, dispatch}, params) {
@@ -21,14 +29,12 @@ export default {
                 return res
             })
         },
-        addSongToQueue({commit, dispatch }, params) {
+        addSongToQueue({commit, dispatch }, song) {
             console.log(params)
-            const api = `${Vue.$symphonyConfig.host}/addSongToQueue`
-
-            return Vue.$net.post(api, params).then(res => {
-                console.log(res)
-                return res
-            })
+            commit('pushQueue', song)
+        },
+        setQueue({commit, dispatch}, room){
+          commit('setQueue', room.queue)
         },
         removeQueueItem({commit, dispatch}, params) {
             const api = `${Vue.$symphonyConfig.host}/removeSongFromQueue`

@@ -1,6 +1,6 @@
 <template>
     <div class="room">
-        <RoomState v-bind:roomId = this.roomId />
+        <RoomPlayer v-bind:roomId = this.roomId />
         <Queue v-bind:roomId = this.roomId />
     </div>
 
@@ -9,12 +9,12 @@
 
 
 <script>
-    import RoomState from './RoomState.vue'
+    import RoomPlayer from './RoomPlayer.vue'
     import Queue from './Queue.vue'
 
     export default {
         name: 'Room',
-        components: {RoomState, Queue},
+        components: {RoomPlayer, Queue},
         data() {
             return {
                 roomId: null

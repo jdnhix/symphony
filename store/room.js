@@ -29,7 +29,8 @@ export default {
 
             return Vue.$net.get(api, params).then( res => {
                 // console.log(res)
-                commit('commitRoom', res.data)
+                commit('commitRoom', res.data[0])
+                dispatch('setQueue', res.data[0])
                 return res
             })
         }

@@ -16,6 +16,15 @@
         components: {Home, Room},
         mounted () {
             window.onSpotifyWebPlaybackSDKReady = () => {}
+        },
+        sockets : {
+            connect: function() {
+                console.log('socket connected')
+            },
+            addSongToQueue : function (song) {
+                this.$store.dispatch('addSongToQueue', song)
+
+            }
         }
     }
 

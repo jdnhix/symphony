@@ -13,6 +13,7 @@
             waitForSpotifyWebPlaybackSDKToLoad: async function () {
                 return new Promise(resolve => {
                     if (window.Spotify) {
+                        console.log('waitfor', window.Spotify)
                         resolve(window.Spotify)
                     } else {
                         window.onSpotifyWebPlaybackSDKReady = () => {
@@ -22,11 +23,12 @@
                 })
             },
             initiatePlayer: async function () {
+                const playerToken = 'BQD6cNMpaFW_Sd6IOvGz8ZDbOLkEH1A3Afyt2aFY65XvUz3qZph-ivlxBVcsA8wzFi4txdm0m_8tBfkwG77ptZ6kLaaJcqZji8d3mR8jyVcEa0MnYnOcQgwhBbGr3rgD68UiGyXCKlXXmvP528iTRDM-WvAvHFaWUsqrYXE'
                 const { Player } = await this.waitForSpotifyWebPlaybackSDKToLoad()
                 const sdk = new Player({
                     name: 'Symphony Web Player',
                     volume: 1.0,
-                    getOAuthToken: callback => { callback('BQDjqyDQdhwJ7YBz8XCxDBatdKe1Pzb3VdeuQ597vQ_dXJCH4XarzOHY4uyE6G2Y2LdFV27d-14bFK6jNeAe8qwaXCH4ogWP--sckx3gSSpG8Pd8N121bQwqGeFQ6M_5IUlJYvoF-dbHyQjqIHu-NiM6kAI4buWtW9mV4d4') }
+                    getOAuthToken: callback => { callback(playerToken) }
                 })
                 console.log(JSON.stringify(sdk))
                 // Error handling
@@ -46,10 +48,15 @@
                 sdk.addListener('not_ready', ({ device_id }) => {
                     console.log('Not ready with device Id: ', device_id)
                 })
-                sdk.connect()
+                sdk.connect().then(success => {
+                    if(success) {
+                        console.log('The Web Playback SDK successfully connected to Spotify!');console.log('The Web Playback SDK successfully connected to Spotify!');
+                    }
+
+                })
             }
         },
-        mounted () {
+        created () {
             this.initiatePlayer()
         }
 

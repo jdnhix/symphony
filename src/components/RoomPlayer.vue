@@ -1,24 +1,33 @@
 <template>
-    <div class='room-state'>
+    <div class='room-player'>
 
-        <div class='header'>
-            <div class="header__title">
-                <h1>{{room[0].roomName}}</h1>
-                <h3>{{room[0].hostName}}</h3>
+        <div class='room-info'>
+            <div class="room-info__title">
+                <h1>{{room.roomName}}</h1>
+                <h3>{{room.hostName}}</h3>
             </div>
-            <p class="'header__audience-count">{{room[0].audienceSize}}</p>
+            <p class="'room-info__audience-count">{{room.audienceSize}}</p>
         </div>
-
-<!--        <WebPlayer/>-->
-
-
-
 
 
 
         <div class="song">
+<!--                    <WebPlayer/>-->
+            <!--        <img :src="room[0].queue[0].coverArt" class="song__cover-art">-->
+
             <div class="progression">Song Progression</div>
+
+            <div class="controls">
+                <button>previous</button>
+                <button>play</button>
+                <button>pause</button>
+                <button>next</button>
+            </div>
+
+
         </div>
+
+
 
     </div>
 </template>
@@ -46,13 +55,14 @@
 
 <style scoped>
 
-    .room-state {
+    .room-player {
         width: 35%;
         height: 85%;
         box-shadow: 0 0 8px 1px rgba(0,0,0,0.16);
+
     }
 
-    .header {
+    .room-info {
         height: 25%;
         display: flex;
         flex-direction: row;
@@ -68,8 +78,8 @@
     }
 
     .song__cover-art {
-        width: 75%;
-        height: 55%;
+        /*width: 75%;*/
+        /*height: 55%;*/
         max-width: 350px;
         max-height: 350px;
         /*padding-top: 75%;*/
@@ -78,9 +88,10 @@
 
     .progression {
         width: 75%;
-        height: 40px;
-        margin-top: 10%;
+        height: 20px;
+        margin: 30px;
         background-color: gray;
+        text-align: center;
     }
 
 
