@@ -23,7 +23,9 @@
             },
             addSongToQueue : function (song) {
                 this.$store.dispatch('addSongToQueue', song)
-
+            },
+            removeQueueItem: function(params) {
+                this.$store.dispatch('removeQueueItem', params)
             }
         }
     }

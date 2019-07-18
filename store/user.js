@@ -3,16 +3,16 @@ import Vue from 'vue'
 
 export default {
     state :{
-        username: null
+        accessToken
     },
     mutations: {
-        commitUsername(state, payload) {
-            state.username = payload
+        commitToken(state, payload) {
+            state.accessToken = payload
         }
 
     },
     actions: {
-        getUsername({commit, dispatch}, params) {
+        getToken({commit, dispatch}, params) {
             const api = `${Vue.$symphonyConfig.host}/login`
 
             return Vue.$net.get(api, params).then(res => {

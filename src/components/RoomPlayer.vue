@@ -20,7 +20,7 @@
             <div class="controls">
                 <button>previous</button>
                 <button>play</button>
-                <button>pause</button>
+                <button @click="pauseSong">pause</button>
                 <button>next</button>
             </div>
 
@@ -39,7 +39,6 @@
     export default {
         name: 'RoomState',
         components: {WebPlayer},
-        //todo ask cameron if this is the best way to do this
         props: ['roomId'],
         created() {
             console.log(this.roomId)
@@ -48,6 +47,11 @@
         computed: {
             room() {
                 return this.$store.state.room.selectedRoom || []
+            }
+        },
+        methods: {
+            pauseSong(){
+                this.$store.dispatch('pauseSong')
             }
         }
     }

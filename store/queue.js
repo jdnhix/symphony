@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 
 export default {
-    state :{
+    state: {
         searchResults: null,
         queue: []
     },
@@ -12,6 +12,18 @@ export default {
         },
         pushQueue(state, payload) {
             state.queue.push(payload)
+        },
+        pullQueue(state, payload) {
+            //todo fix problem of multiples of same song
+            const index = state.queue.findIndex(element => {
+                return element.songId === payload.songId
+            })
+
+            if (index === 0) {
+                state.queue.shift()
+            } else {
+                state.queue.splice(index, index)
+            }
         },
         setQueue(state, payload) {
             state.queue = payload
@@ -29,20 +41,14 @@ export default {
                 return res
             })
         },
-        addSongToQueue({commit, dispatch }, song) {
-            console.log(params)
+        addSongToQueue({commit, dispatch}, song) {
             commit('pushQueue', song)
         },
-        setQueue({commit, dispatch}, room){
-          commit('setQueue', room.queue)
+        setQueue({commit, dispatch}, room) {
+            commit('setQueue', room.queue)
         },
         removeQueueItem({commit, dispatch}, params) {
-            const api = `${Vue.$symphonyConfig.host}/removeSongFromQueue`
-
-            return Vue.$net.post(api, params).then(res => {
-                console.log(res)
-                return res
-            })
+            commit('pullQueue', params)
         },
         changeSongRank({commit, dispatch}, params) {
             const api = `${Vue.$symphonyConfig.host}/songRank`
@@ -63,7 +69,6 @@ export default {
         }
 
     }
-
 
 
 }

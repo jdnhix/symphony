@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-            <img :src= 'song.coverArt' class="cover-art"/>
+        <img :src='song.coverArt' class="cover-art"/>
 
 
         <div class="song-info">
@@ -31,28 +31,24 @@
     export default {
         name: 'QueueItem',
         props: ['song', 'roomId'],
-        data () {
-          return {
-              isVotedUp: false,
-              isVotedDown: false
-          }
+        data() {
+            return {
+                isVotedUp: false,
+                isVotedDown: false
+            }
         },
-        methods : {
-            removeQueueItem() {
-                this.$store.dispatch('removeQueueItem', {
-                    params: {
-                        roomId: this.roomId,
-                        songId: this.song.songId,
-                    }
-                }).then(() => {
-                    this.getRoom()
-                })
+        methods: {
+            async removeQueueItem() {
+                const params = {
+                    roomId: this.roomId,
+                    songId: this.song.songId,
+                }
+                let response = await this.$socket.emit('removeQueueItem', params)
             },
             getRoom() {
-                //todo does it matter that i have this method here instead of in queue.vue
                 this.$store.dispatch('getRoom', {params: {roomId: this.roomId}})
             },
-            sortQueue(){
+            sortQueue() {
                 this.$store.dispatch('sort', {
                     params: {
                         roomId: this.roomId
@@ -92,12 +88,12 @@
         display: flex;
         flex-direction: row;
         justify-content: space-around;
-        box-shadow: 0 0 8px 1px rgba(0,0,0,0.16);
+        box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.16);
         align-items: center;
         margin: 10px 0;
     }
 
-    .cover-art{
+    .cover-art {
         width: 20%;
     }
 
@@ -111,7 +107,7 @@
         width: 15px;
     }
 
-    .arrow:hover{
+    .arrow:hover {
         cursor: pointer;
     }
 
