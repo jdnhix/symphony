@@ -1,28 +1,39 @@
 import Vue from 'vue'
+import querystring from 'querystring'
 
 
 export default {
-    state :{
-        accessToken
+    state: {
+        accessToken: 'hi' //todo this is not available in other components
     },
     mutations: {
-        commitToken(state, payload) {
+        commitAccessToken(state, payload) {
             state.accessToken = payload
         }
-
     },
     actions: {
-        getToken({commit, dispatch}, params) {
-            const api = `${Vue.$symphonyConfig.host}/login`
+        async getCode({commit, dispatch}) {
+            try {
+                const api = `${Vue.$symphonyConfig.host}/auth`
+                const response = await Vue.$net.get(api)
+                if (response.data.url) {
+                    window.location.href = response.data.url;
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        async getToken({commit, dispatch}, params) {
+            console.log(params.code)
+            const api = `${Vue.$symphonyConfig.host}/user2`
 
-            return Vue.$net.get(api, params).then(res => {
+            return Vue.$net.post(api, params).then(res => {
                 console.log(res)
-                commit('commitUsername', res.data)
+                commit('commitAccessToken', res.data)
                 return res
             })
         }
     }
-
 
 
 }

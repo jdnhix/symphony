@@ -21,13 +21,8 @@
         name: 'Nav',
         methods: {
             login() {
-                this.$store.dispatch('getUsername').then(res => {
-                    window.location = res.data.url
-                })
-                    .catch(err => console.log(err))
-
+                this.$store.dispatch('getCode')
             }
-
         }
     }
 

@@ -47,13 +47,15 @@
         computed: {
             room() {
                 return this.$store.state.room.selectedRoom || []
-            }
+            },
         },
         methods: {
             pauseSong(){
-                this.$store.dispatch('pauseSong')
+                const accessToken = this.$store.state.user.accessToken
+                console.log(accessToken)
+                // this.$store.dispatch('pauseSong')
             }
-        }
+        },
     }
 </script>
 

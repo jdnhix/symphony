@@ -83,6 +83,8 @@ module.exports = env => {
             port: 8081,
             hot: true,
             noInfo: true,
+            historyApiFallback: true //todo added this to get routes to work, check with cam if this is okay
+
         },
         performance: {
             hints: false
