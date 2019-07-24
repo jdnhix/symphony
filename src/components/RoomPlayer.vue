@@ -10,52 +10,73 @@
         </div>
 
 
-
         <div class="song">
-<!--                    <WebPlayer/>-->
-            <!--        <img :src="room[0].queue[0].coverArt" class="song__cover-art">-->
+<!--            <h2>{{currentSong.item.name}}</h2>-->
+<!--            <h3>{{currentSong.item.artists[0].name}}</h3>-->
+<!--            <img :src="currentSong.item.album.images[0].url" class="song__cover-art">-->
 
             <div class="progression">Song Progression</div>
 
             <div class="controls">
-                <button>previous</button>
-                <button>play</button>
+                <button @click="previousSong">previous</button>
+                <button @click="playSong">play</button>
                 <button @click="pauseSong">pause</button>
-                <button>next</button>
+                <button @click="nextSong">next</button>
             </div>
+
+            <button @click="getCurrentPlayback">Current Playback</button>
 
 
         </div>
-
 
 
     </div>
 </template>
 
 
-
 <script>
     import WebPlayer from './WebPlayer.vue'
+
+
     export default {
         name: 'RoomState',
         components: {WebPlayer},
         props: ['roomId'],
         created() {
-            console.log(this.roomId)
             this.$store.dispatch('getRoom', {params: {roomId: this.roomId}})
         },
         computed: {
             room() {
                 return this.$store.state.room.selectedRoom || []
             },
-        },
-        methods: {
-            pauseSong(){
-                const accessToken = this.$store.state.user.accessToken
-                console.log(accessToken)
-                // this.$store.dispatch('pauseSong')
+            currentSong () {
+                return this.$store.state.player.currentPlayback || {}
+            },
+            accessToken() {
+                return this.$store.state.user.accessToken
             }
         },
+        methods: {
+            pauseSong() {
+                this.$store.dispatch('pauseSong', {token: this.accessToken})
+            },
+            playSong() {
+                this.$store.dispatch('playSong', {token: this.accessToken})
+            },
+            nextSong() {
+                this.$store.dispatch('nextSong', {token: this.accessToken})
+            },
+            previousSong() {
+                this.$store.dispatch('previousSong', {token: this.accessToken})
+            },
+            getCurrentPlayback() {
+                this.$store.dispatch('getCurrentPlayback', {token: this.accessToken})
+            }
+        },
+        mounted() {
+            this.getCurrentPlayback()
+            this.$socket.emit('initiate', {accessToken: this.accessToken})
+        }
     }
 </script>
 
@@ -64,7 +85,7 @@
     .room-player {
         width: 35%;
         height: 85%;
-        box-shadow: 0 0 8px 1px rgba(0,0,0,0.16);
+        box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.16);
 
     }
 
@@ -99,8 +120,6 @@
         background-color: gray;
         text-align: center;
     }
-
-
 
 
 </style>

@@ -23,7 +23,7 @@
                 })
             },
             initiatePlayer: async function () {
-                const playerToken = 'BQD6cNMpaFW_Sd6IOvGz8ZDbOLkEH1A3Afyt2aFY65XvUz3qZph-ivlxBVcsA8wzFi4txdm0m_8tBfkwG77ptZ6kLaaJcqZji8d3mR8jyVcEa0MnYnOcQgwhBbGr3rgD68UiGyXCKlXXmvP528iTRDM-WvAvHFaWUsqrYXE'
+                const playerToken = this.$store.state.user.accessToken
                 const { Player } = await this.waitForSpotifyWebPlaybackSDKToLoad()
                 const sdk = new Player({
                     name: 'Symphony Web Player',
@@ -50,13 +50,13 @@
                 })
                 sdk.connect().then(success => {
                     if(success) {
-                        console.log('The Web Playback SDK successfully connected to Spotify!');console.log('The Web Playback SDK successfully connected to Spotify!');
+                        console.log('The Web Playback SDK successfully connected to Spotify!');
                     }
 
                 })
             }
         },
-        created () {
+        mounted () {
             this.initiatePlayer()
         }
 

@@ -26,7 +26,10 @@
             },
             removeQueueItem: function(params) {
                 this.$store.dispatch('removeQueueItem', params)
-            }
+            },
+            initial_state: function (player) {
+                console.log('hit')
+            },
         }
     }
 
