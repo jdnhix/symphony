@@ -10,9 +10,9 @@
 
         <div class="rank">
 
-            <img v-if="!isVotedUp" @click="changeSongRank('inc')" src="../assets/img/upload.svg" class='arrow'/>
+            <img @click="changeSongRank('inc')" src="../assets/img/upload.svg" class='arrow'/>
 
-            <img v-if="isVotedUp" @click="changeSongRank('inc')" src="../assets/img/upload.svg" class='arrow voted'/>
+<!--            <img v-if="isVotedUp" @click="changeSongRank('inc')" src="../assets/img/upload.svg" class='arrow voted'/>-->
 
 
             <p class="rank__number">{{ song.rank }}</p>
@@ -58,23 +58,12 @@
                 })
             },
             changeSongRank(dir) {
-                this.$emit('addVotedSong', this.song)
-                this.isVotedUp = true
-
-                this.$store.dispatch('changeSongRank', {
-                    params: {
-                        roomId: this.roomId,
-                        songId: this.song.songId,
-                        direction: dir
-                    }
-                }).then(() => {
-                    this.sortQueue()
-                })
+                // }).then(() => {
+                //     this.sortQueue()
+                // })
+                this.$socket.emit('changeSongRank', {direction: dir, song: this.song, roomId: this.roomId})
             },
-
-
         }
-
     }
 
 </script>

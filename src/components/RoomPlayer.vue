@@ -11,9 +11,9 @@
 
 
         <div class="song">
-<!--            <h2>{{currentSong.item.name}}</h2>-->
-<!--            <h3>{{currentSong.item.artists[0].name}}</h3>-->
-<!--            <img :src="currentSong.item.album.images[0].url" class="song__cover-art">-->
+            <h2>{{currentSong.songName}}</h2>
+            <h3>{{currentSong.artistName}}</h3>
+            <img :src="currentSong.coverArt" class="song__cover-art">
 
             <div class="progression">Song Progression</div>
 
@@ -24,7 +24,8 @@
                 <button @click="nextSong">next</button>
             </div>
 
-            <button @click="getCurrentPlayback">Current Playback</button>
+            <button @click="getPlayback">Current Playback</button>
+            {{playback}}
 
 
         </div>
@@ -42,6 +43,11 @@
         name: 'RoomState',
         components: {WebPlayer},
         props: ['roomId'],
+        data () {
+            return{
+                started: false
+            }
+        },
         created() {
             this.$store.dispatch('getRoom', {params: {roomId: this.roomId}})
         },
@@ -50,10 +56,13 @@
                 return this.$store.state.room.selectedRoom || []
             },
             currentSong () {
-                return this.$store.state.player.currentPlayback || {}
+                return this.$store.state.player.currentSong || {}
             },
             accessToken() {
                 return this.$store.state.user.accessToken
+            },
+            playback() {
+                return this.$store.state.player.playback
             }
         },
         methods: {
@@ -61,20 +70,29 @@
                 this.$store.dispatch('pauseSong', {token: this.accessToken})
             },
             playSong() {
-                this.$store.dispatch('playSong', {token: this.accessToken})
+                if(!this.started){
+                    const song = this.room.queue[0]
+                    this.$socket.emit('playSong', {token: this.accessToken, song: song, roomId: this.roomId})
+                    this.started = true
+                } else {
+                    this.$socket.emit('playSong', {token: this.accessToken, song: '', roomId: this.roomId})
+                }
+
             },
             nextSong() {
-                this.$store.dispatch('nextSong', {token: this.accessToken})
+                const song = this.room.queue[0]
+                if(song) {
+                    this.$socket.emit('playSong', {token: this.accessToken, song: song, roomId: this.roomId})
+                } else {
+                    alert('no songs in queue')
+                }
             },
             previousSong() {
                 this.$store.dispatch('previousSong', {token: this.accessToken})
             },
-            getCurrentPlayback() {
-                this.$store.dispatch('getCurrentPlayback', {token: this.accessToken})
+            getPlayback() {
+                this.$store.dispatch('getPlayback', {token: this.accessToken})
             }
-        },
-        mounted() {
-            this.getCurrentPlayback()
         }
     }
 </script>

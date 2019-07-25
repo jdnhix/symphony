@@ -4,7 +4,7 @@
             <SearchComponent v-model="searchParam" :value="searchParam"/>
         </div>
 
-        <ul  class="queue-list">
+        <ul class="queue-list">
 
             <li v-if="room && !searchParam && queue" v-for="song in queue" class='list-card'>
                 <QueueItem
@@ -12,10 +12,11 @@
                         v-bind:song=song :roomId=roomId />
             </li>
 
+            <p v-if="!queue[0] && !searchParam">No songs in queue</p>
+
             <li v-if="searchResults && searchParam" v-for="song in searchResults" @click="addSongToQueue(song)" class="search-item">
                 {{song.name}} - {{song.artists[0].name}}
             </li>
-
 
         </ul>
 
@@ -73,19 +74,10 @@
 
                 let response = await this.$socket.emit('addSongToQueue', song)
                 this.searchParam = ''
-                this.sortQueue() //todo check if this works
+
             },
             getRoom() {
                 this.$store.dispatch('getRoom', {params: {roomId: this.roomId}})
-            },
-            sortQueue(){
-                this.$store.dispatch('sort', {
-                    params: {
-                        roomId: this.roomId
-                    }
-                }).then(() => {
-                    this.getRoom()
-                })
             },
             addVotedSong(song) {
                 this.votedSongs.push(song)

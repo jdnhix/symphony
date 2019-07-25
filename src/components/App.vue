@@ -29,6 +29,12 @@
             },
             addRoom: function (room) {
                 this.$store.dispatch('addRoom', room)
+            },
+            playSong: function (params){
+                this.$store.dispatch('playSong', params)
+            },
+            changeSongRank: function (params){
+                this.$store.dispatch('changeSongRank', params)
             }
         }
     }

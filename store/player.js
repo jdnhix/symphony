@@ -2,11 +2,20 @@ import Vue from 'vue'
 
 export default {
     state: {
-        currentPlayback: null
+        currentSong: null,
+        playback: null
     },
     mutations: {
-        setCurrentPlayback(state, payload){
-            state.currentPlayback = payload
+        setCurrentSong(state, payload){
+            if(payload){
+                state.currentSong = payload
+            } else {
+                //todo change 'playing' key of currentsong here
+            }
+        },
+        setPlayback(state, payload){
+            console.log(payload)
+            state.playback = payload
         }
     },
     actions: {
@@ -18,10 +27,9 @@ export default {
             })
         },
         playSong({commit, dispatch}, params) {
-            const api = `${Vue.$symphonyConfig.host}/play`
-            return Vue.$net.post(api, params).then( res => {
-                return res
-            })
+            console.log(params)
+                commit('setCurrentSong', params.song)
+                commit('pullQueue', params.song)
         },
         nextSong({commit, dispatch}, params) {
             const api = `${Vue.$symphonyConfig.host}/next`
@@ -35,10 +43,10 @@ export default {
                 return res
             })
         },
-        getCurrentPlayback({commit, dispatch}, params) {
+        getPlayback({commit, dispatch}, params) {
             const api = `${Vue.$symphonyConfig.host}/currentPlayback`
             return Vue.$net.post(api, params).then( res => {
-                commit('setCurrentPlayback', res.data)
+                commit('setPlayback', res.data)
             })
         }
 

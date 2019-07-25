@@ -12,9 +12,13 @@ export default {
         },
         pushQueue(state, payload) {
             state.queue.push(payload)
+
+            state.queue = state.queue.sort((a,b) => {
+                return b.rank - a.rank
+            })
         },
         pullQueue(state, payload) {
-            //todo fix problem of multiples of same song
+            //todo fix problem of multiples of same song, could fix by assigning songs random id's and then adding uri field
             const index = state.queue.findIndex(element => {
                 return element.songId === payload.songId
             })
@@ -27,8 +31,22 @@ export default {
         },
         setQueue(state, payload) {
             state.queue = payload
-        }
+        },
+        commitSongRank(state, payload) {
+            const index = state.queue.findIndex(element => {
+                return element.songId === payload.song.songId
+            })
 
+            if(payload.direction === 'inc'){
+                ++state.queue[index].rank
+            } else {
+                --state.queue[index].rank
+            }
+
+            state.queue = state.queue.sort((a,b) => {
+                return b.rank - a.rank
+            })
+        }
     },
     actions: {
         getSearchResults({commit, dispatch}, params) {
@@ -51,23 +69,8 @@ export default {
             commit('pullQueue', params)
         },
         changeSongRank({commit, dispatch}, params) {
-            const api = `${Vue.$symphonyConfig.host}/songRank`
-
-            return Vue.$net.post(api, params).then(res => {
-                console.log(res)
-                return res
-            })
-        },
-        sort({commit, dispatch}, params) {
-            const api = `${Vue.$symphonyConfig.host}/sortQueue`
-            console.log('sorting!')
-
-            return Vue.$net.post(api, params).then(res => {
-                console.log(res)
-                return res
-            })
+            commit('commitSongRank', params)
         }
-
     }
 
 

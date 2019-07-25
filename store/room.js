@@ -34,6 +34,7 @@ export default {
             return Vue.$net.get(api, params).then( res => {
                 // console.log(res)
                 commit('commitRoom', res.data[0])
+                commit('setCurrentSong', res.data[0].currentSong)
                 dispatch('setQueue', res.data[0])
                 return res
             })
