@@ -12,7 +12,11 @@ export default {
         },
         commitRoom(state, payload) {
             state.selectedRoom = payload
-        }
+        },
+        pushRoom(state, payload) {
+            state.roomList.push(payload)
+            console.log(payload)
+        },
     },
     actions: {
         getRooms({commit, dispatch}, params) {
@@ -33,6 +37,9 @@ export default {
                 dispatch('setQueue', res.data[0])
                 return res
             })
+        },
+        addRoom({commit, dispatch}, room) {
+            commit('pushRoom', room)
         }
     }
 

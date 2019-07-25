@@ -16,6 +16,6 @@ const modules = {
     player,
 }
 
-const store = new Vuex.Store({modules, plugins: [createPersistedState()]})
+const store = new Vuex.Store({modules, plugins: [createPersistedState({paths: ['user']})]})
 
 export default store

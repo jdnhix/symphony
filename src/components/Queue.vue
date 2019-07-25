@@ -39,7 +39,7 @@
                 searchParam: null
             }
         },
-        mounted() {
+        created() {
             this.getRoom()
         },
         computed: {

@@ -75,7 +75,6 @@
         },
         mounted() {
             this.getCurrentPlayback()
-            this.$socket.emit('initiate', {accessToken: this.accessToken})
         }
     }
 </script>

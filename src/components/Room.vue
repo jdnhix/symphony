@@ -3,18 +3,17 @@
         <RoomPlayer v-bind:roomId = this.roomId />
         <Queue v-bind:roomId = this.roomId />
     </div>
-
-
 </template>
 
 
 <script>
     import RoomPlayer from './RoomPlayer.vue'
     import Queue from './Queue.vue'
+    import Nav from './Nav.vue'
 
     export default {
         name: 'Room',
-        components: {RoomPlayer, Queue},
+        components: {Nav, RoomPlayer, Queue},
         data() {
             return {
                 roomId: null

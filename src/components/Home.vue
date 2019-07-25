@@ -8,8 +8,8 @@
                 <p>{{room.roomName}}</p>
                 <p>{{room.hostName}}</p>
                 <p>{{room.audienceSize}}</p>
-                <p>Current Song</p>
-                <p>Lock img</p>
+                <p>{{room.currentSong.songName}} - {{room.currentSong.artistName}}</p>
+                <p>{{room.roomType}}</p>
             </li>
         </ul>
 
@@ -40,8 +40,12 @@
         },
         methods: {
             goToRoom (room) {
-                const data = room
-                this.$router.push({ path: '/room', query: {roomId: data._id} })
+                if(room.roomType === 'private'){
+                    alert('need password, ask how to do modal popup')
+                } else {
+                    const data = room
+                    this.$router.push({path: '/room', query: {roomId: data._id}})
+                }
             }
 
         },
