@@ -51,10 +51,8 @@ export default {
     actions: {
         getSearchResults({commit, dispatch}, params) {
             const api = `${Vue.$symphonyConfig.host}/search`
-            console.log(params)
 
             return Vue.$net.get(api, params).then(res => {
-                console.log(res)
                 commit('commitSearchResults', res.data)
                 return res
             })

@@ -6,14 +6,14 @@ export default {
         playback: null
     },
     mutations: {
-        setCurrentSong(state, payload){
-            if(payload){
+        setCurrentSong(state, payload) {
+            if (payload) {
                 state.currentSong = payload
             } else {
                 //todo change 'playing' key of currentsong here
             }
         },
-        setPlayback(state, payload){
+        setPlayback(state, payload) {
             console.log(payload)
             state.playback = payload
         }
@@ -22,30 +22,29 @@ export default {
         //todo this might need to use websockets
         pauseSong({commit, dispatch}, params) {
             const api = `${Vue.$symphonyConfig.host}/pause`
-            return Vue.$net.post(api, params).then( res => {
+            return Vue.$net.post(api, params).then(res => {
                 return res
             })
         },
         playSong({commit, dispatch}, params) {
-            console.log(params)
-                commit('setCurrentSong', params.song)
-                commit('pullQueue', params.song)
+            commit('setCurrentSong', params.song)
+            commit('pullQueue', params.song)
         },
         nextSong({commit, dispatch}, params) {
             const api = `${Vue.$symphonyConfig.host}/next`
-            return Vue.$net.post(api, params).then( res => {
+            return Vue.$net.post(api, params).then(res => {
                 return res
             })
         },
         previousSong({commit, dispatch}, params) {
             const api = `${Vue.$symphonyConfig.host}/previous`
-            return Vue.$net.post(api, params).then( res => {
+            return Vue.$net.post(api, params).then(res => {
                 return res
             })
         },
         getPlayback({commit, dispatch}, params) {
             const api = `${Vue.$symphonyConfig.host}/currentPlayback`
-            return Vue.$net.post(api, params).then( res => {
+            return Vue.$net.post(api, params).then(res => {
                 commit('setPlayback', res.data)
             })
         }

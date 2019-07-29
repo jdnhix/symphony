@@ -11,6 +11,7 @@
 
 
         <div class="song">
+
             <h2>{{currentSong.songName}}</h2>
             <h3>{{currentSong.artistName}}</h3>
             <img :src="currentSong.coverArt" class="song__cover-art">
@@ -19,8 +20,11 @@
 
             <div class="controls">
                 <button @click="previousSong">previous</button>
-                <button @click="playSong">play</button>
-                <button @click="pauseSong">pause</button>
+
+                <button v-show="!roomIsPlaying" @click="nextSong">play(nextsongone)</button>
+                <button v-show="roomIsPlaying && paused" @click="playSong">play</button>
+                <button v-show="roomIsPlaying && !paused" @click="pauseSong">pause</button>
+
                 <button @click="nextSong">next</button>
             </div>
 
@@ -38,14 +42,40 @@
 <script>
     import WebPlayer from './WebPlayer.vue'
 
+    function Timer(callback, delay) {
+        var args = arguments,
+            self = this,
+            timer, start;
+
+        this.clear = function () {
+            clearTimeout(timer);
+        };
+
+        this.pause = function () {
+            this.clear();
+            delay -= new Date() - start;
+        };
+
+        this.resume = function () {
+            start = new Date();
+            timer = setTimeout(function () {
+                callback.apply(self, Array.prototype.slice.call(args, 2, args.length));
+            }, delay);
+        };
+
+        this.resume();
+    }
+
 
     export default {
         name: 'RoomState',
         components: {WebPlayer},
         props: ['roomId'],
-        data () {
-            return{
-                started: false
+        data() {
+            return {
+                roomIsPlaying: false,
+                paused: false,
+                timer: null
             }
         },
         created() {
@@ -55,7 +85,7 @@
             room() {
                 return this.$store.state.room.selectedRoom || []
             },
-            currentSong () {
+            currentSong() {
                 return this.$store.state.player.currentSong || {}
             },
             accessToken() {
@@ -67,24 +97,30 @@
         },
         methods: {
             pauseSong() {
+                this.paused = true
+                this.timer.pause()
                 this.$store.dispatch('pauseSong', {token: this.accessToken})
             },
             playSong() {
-                if(!this.started){
-                    const song = this.room.queue[0]
-                    this.$socket.emit('playSong', {token: this.accessToken, song: song, roomId: this.roomId})
-                    this.started = true
-                } else {
-                    this.$socket.emit('playSong', {token: this.accessToken, song: '', roomId: this.roomId})
-                }
+                this.$socket.emit('playSong', {token: this.accessToken, song: '', roomId: this.roomId})
+                this.paused = false
+                this.timer.resume()
 
             },
             nextSong() {
+                this.roomIsPlaying = true
                 const song = this.room.queue[0]
-                if(song) {
+                if (song) {
                     this.$socket.emit('playSong', {token: this.accessToken, song: song, roomId: this.roomId})
+
+                    this.timer = new Timer(() => {
+                        console.log('song ended')
+                        this.nextSong()
+                    }, song.durationMS + 1000)
+
                 } else {
-                    alert('no songs in queue')
+                    console.log('no songs in queue')
+                    this.roomIsPlaying = false
                 }
             },
             previousSong() {

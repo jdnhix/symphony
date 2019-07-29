@@ -69,7 +69,8 @@
                     artistName: addedSong.artists[0].name,
                     songId: addedSong.uri,
                     coverArt: addedSong.album.images[0].url,
-                    explicit: addedSong.explicit
+                    explicit: addedSong.explicit,
+                    durationMS: addedSong.duration_ms
                 }
 
                 let response = await this.$socket.emit('addSongToQueue', song)

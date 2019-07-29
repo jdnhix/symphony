@@ -4,7 +4,7 @@ import querystring from 'querystring'
 
 export default {
     state: {
-        accessToken: 'hi' //todo this is not available in other components
+        accessToken: null
     },
     mutations: {
         commitAccessToken(state, payload) {

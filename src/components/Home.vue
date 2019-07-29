@@ -1,5 +1,9 @@
 <template>
     <div class="home">
+
+        <Popup v-if="popupVisible" @close="popupVisible = false" :data="popupData"></Popup>
+
+
         <Nav class/>
         <SearchComponent class='search'/>
 
@@ -17,6 +21,9 @@
 
 
 
+
+
+
     </div>
 
 
@@ -25,12 +32,16 @@
 <script>
     import Nav from './Nav.vue'
     import SearchComponent from './SearchComponent.vue'
+    import Popup from './Popup.vue'
+
     export default {
         name: 'Home',
-        components: {SearchComponent, Nav},
+        components: {SearchComponent, Nav, Popup},
         data() {
             return {
-                roomsList: null
+                roomsList: null,
+                popupVisible: false,
+                popupData: null
             }
         },
         computed: {
@@ -41,7 +52,8 @@
         methods: {
             goToRoom (room) {
                 if(room.roomType === 'private'){
-                    alert('need password, ask how to do modal popup')
+                    this.popupData = room
+                    this.popupVisible = true
                 } else {
                     const data = room
                     this.$router.push({path: '/room', query: {roomId: data._id}})
