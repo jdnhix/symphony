@@ -4,11 +4,15 @@ import querystring from 'querystring'
 
 export default {
     state: {
-        accessToken: null
+        accessToken: null,
+        refreshToken: null
     },
     mutations: {
         commitAccessToken(state, payload) {
-            state.accessToken = payload
+            state.accessToken = payload.access_token
+        },
+        commitRefreshToken(state, payload){
+            state.refreshToken = payload.refresh_token
         }
     },
     actions: {
@@ -28,10 +32,18 @@ export default {
             const api = `${Vue.$symphonyConfig.host}/user2`
 
             return Vue.$net.post(api, params).then(res => {
-                console.log(res)
                 commit('commitAccessToken', res.data)
-                return res
+                commit('commitRefreshToken', res.data)
             })
+        },
+        refreshAccessToken({commit, dispatch}, params){
+            const api = `${Vue.$symphonyConfig.host}/refresh_token`
+
+            return Vue.$net.post(api, params).then(res => {
+                console.log(res.data)
+                commit('commitAccessToken', res.data)
+            })
+
         }
     }
 

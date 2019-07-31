@@ -64,12 +64,10 @@
                     password: this.password,
                     downVoteLimit: this.downVoteLimit
                 }
-
                 this.$socket.emit('addRoom', roomInfo)
                 // this.$router.push({ path: '/room', query: {roomId: ._id} }) todo i want to make so that it goes directly to the room
                 this.$router.push({path: '/'})
-
-            }
+            },
 
         }
     }

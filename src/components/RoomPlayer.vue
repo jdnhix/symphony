@@ -21,9 +21,9 @@
             <div class="controls">
                 <button @click="previousSong">previous</button>
 
-                <button v-show="!roomIsPlaying" @click="nextSong">play(nextsongone)</button>
-                <button v-show="roomIsPlaying && paused" @click="playSong">play</button>
-                <button v-show="roomIsPlaying && !paused" @click="pauseSong">pause</button>
+<!--                <button v-show="!roomIsPlaying" @click="nextSong">play(next song one)</button>-->
+                <button  v-show = 'musicPaused' @click="playSong">play</button>
+                <button  v-show= "!musicPaused" @click="pauseSong">pause</button>
 
                 <button @click="nextSong">next</button>
             </div>
@@ -42,6 +42,8 @@
 <script>
     import WebPlayer from './WebPlayer.vue'
 
+
+    //todo delete this if not needed
     function Timer(callback, delay) {
         var args = arguments,
             self = this,
@@ -74,7 +76,7 @@
         data() {
             return {
                 roomIsPlaying: false,
-                paused: false,
+                musicPaused: false,
                 timer: null
             }
         },
@@ -97,30 +99,25 @@
         },
         methods: {
             pauseSong() {
-                this.paused = true
-                this.timer.pause()
+                this.musicPaused = true
                 this.$store.dispatch('pauseSong', {token: this.accessToken})
             },
             playSong() {
+                console.log('song resumed')
+                this.musicPaused = false
                 this.$socket.emit('playSong', {token: this.accessToken, song: '', roomId: this.roomId})
-                this.paused = false
-                this.timer.resume()
-
             },
             nextSong() {
                 this.roomIsPlaying = true
                 const song = this.room.queue[0]
                 if (song) {
+                    console.log('song started')
                     this.$socket.emit('playSong', {token: this.accessToken, song: song, roomId: this.roomId})
-
-                    this.timer = new Timer(() => {
-                        console.log('song ended')
-                        this.nextSong()
-                    }, song.durationMS + 1000)
-
                 } else {
                     console.log('no songs in queue')
                     this.roomIsPlaying = false
+                    this.$socket.emit('clearCurrentSong', {roomId: this.roomId})
+                    //todo make this update the live rooms current song
                 }
             },
             previousSong() {
@@ -128,6 +125,16 @@
             },
             getPlayback() {
                 this.$store.dispatch('getPlayback', {token: this.accessToken})
+            }
+        },
+        sockets: {
+            musicStop: function () {
+                console.log('song done')
+                this.nextSong()
+            },
+            musicPause: function () {
+                console.log('song paused')
+                this.musicPaused = true
             }
         }
     }

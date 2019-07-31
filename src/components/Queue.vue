@@ -15,7 +15,8 @@
             <p v-if="!queue[0] && !searchParam">No songs in queue</p>
 
             <li v-if="searchResults && searchParam" v-for="song in searchResults" @click="addSongToQueue(song)" class="search-item">
-                {{song.name}} - {{song.artists[0].name}}
+                <img :src="song.album.images[0].url" width="40px">
+                {{song.name}} - {{song.artists[0].name}} - explicit: {{song.explicit}}
             </li>
 
         </ul>
@@ -57,7 +58,7 @@
         watch: {
             searchParam : {
                 handler(newVal, oldVal) {
-                    this.$store.dispatch('getSearchResults', {params: {songName: this.searchParam}})
+                    this.$store.dispatch('getSearchResults', {params: {songName: this.searchParam, accessToken: this.$store.state.user.accessToken}})
                 }
             }
         },
@@ -114,7 +115,7 @@
     }
 
     .queue-list {
-        width: 80%;
+        width: 90%;
         list-style-type: none;
         padding: 0;
         display: flex;
@@ -125,12 +126,12 @@
 
     .search-item{
         border: 1px solid black;
-        height: 50px;
+        height: 40px;
         display: flex;
         align-items: center;
         padding-left: 5px;
-
-
+        overflow: scroll;
+        margin: 2px 0;
     }
 
     .search-item:hover {

@@ -30,12 +30,6 @@ export default {
             commit('setCurrentSong', params.song)
             commit('pullQueue', params.song)
         },
-        nextSong({commit, dispatch}, params) {
-            const api = `${Vue.$symphonyConfig.host}/next`
-            return Vue.$net.post(api, params).then(res => {
-                return res
-            })
-        },
         previousSong({commit, dispatch}, params) {
             const api = `${Vue.$symphonyConfig.host}/previous`
             return Vue.$net.post(api, params).then(res => {

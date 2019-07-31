@@ -19,6 +19,14 @@
                 roomId: null
             }
         },
+        methods: {
+            updateToken() {
+                setTimeout( ()=>{
+                    console.log('refreshing token')
+                    this.$store.dispatch('refreshAccessToken', {refreshToken: this.$store.state.user.refreshToken})
+                }, 36000000)
+            }
+        },
         watch: {
             '$route.query' : {
                 immediate: true,
@@ -26,6 +34,9 @@
                     this.roomId = newVal.roomId
                 }
             }
+        },
+        mounted() {
+            this.updateToken()
         }
     }
 </script>

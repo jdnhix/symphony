@@ -8,16 +8,17 @@
             <p class="song-info__artist">{{song.artistName}}</p>
         </div>
 
-        <div class="rank">
+        <p v-if="song.explicit" class="explcit-mark">E</p>
 
+
+        <div class="rank">
             <img @click="changeSongRank('inc')" src="../assets/img/upload.svg" class='arrow'/>
 
-<!--            <img v-if="isVotedUp" @click="changeSongRank('inc')" src="../assets/img/upload.svg" class='arrow voted'/>-->
+            <!--            <img v-if="isVotedUp" @click="changeSongRank('inc')" src="../assets/img/upload.svg" class='arrow voted'/>-->
 
 
             <p class="rank__number">{{ song.rank }}</p>
             <img @click="changeSongRank('dec')" src="../assets/img/download.svg" class='arrow'/>
-
 
         </div>
 
@@ -110,6 +111,12 @@
 
     .voted {
         background: green;
+    }
+
+    .explcit-mark {
+        background: black;
+        color: #FFFFFF;
+        padding: 5px;
     }
 
 </style>

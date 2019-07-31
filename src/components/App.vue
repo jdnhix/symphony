@@ -35,7 +35,7 @@
             },
             changeSongRank: function (params){
                 this.$store.dispatch('changeSongRank', params)
-            }
+            },
         }
     }
 

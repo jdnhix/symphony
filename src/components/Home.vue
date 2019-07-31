@@ -2,10 +2,7 @@
     <div class="home">
 
         <Popup v-if="popupVisible" @close="popupVisible = false" :data="popupData"></Popup>
-
-
         <Nav class/>
-        <SearchComponent class='search'/>
 
         <ul>
             <li @click="goToRoom(room)" v-for="room in rooms" class="room-card">
@@ -16,13 +13,6 @@
                 <p>{{room.roomType}}</p>
             </li>
         </ul>
-
-
-
-
-
-
-
 
     </div>
 
@@ -50,8 +40,8 @@
             }
         },
         methods: {
-            goToRoom (room) {
-                if(room.roomType === 'private'){
+            goToRoom(room) {
+                if (room.roomType === 'private') {
                     this.popupData = room
                     this.popupVisible = true
                 } else {
@@ -96,17 +86,13 @@
 
     .room-card:hover {
         cursor: pointer;
-        box-shadow: 0 0 8px 1px rgba(0,0,0,0.16);
+        box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.16);
     }
 
     ul {
         width: 75%;
         max-width: 1000px;
     }
-
-
-
-
 
 
 </style>
