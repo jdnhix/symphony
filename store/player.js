@@ -7,11 +7,7 @@ export default {
     },
     mutations: {
         setCurrentSong(state, payload) {
-            if (payload) {
-                state.currentSong = payload
-            } else {
-                //todo change 'playing' key of currentsong here
-            }
+            state.currentSong = payload
         },
         setPlayback(state, payload) {
             console.log(payload)
@@ -41,6 +37,9 @@ export default {
             return Vue.$net.post(api, params).then(res => {
                 commit('setPlayback', res.data)
             })
+        },
+        clearCurrentSong({commit, dispatch}, clear) {
+            commit('setCurrentSong', clear)
         }
 
 

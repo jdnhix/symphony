@@ -36,6 +36,9 @@
             changeSongRank: function (params){
                 this.$store.dispatch('changeSongRank', params)
             },
+            clearCurrentSong: function(clear){
+                this.$store.dispatch('clearCurrentSong', clear)
+            }
         }
     }
 

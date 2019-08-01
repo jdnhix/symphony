@@ -77,7 +77,6 @@
             return {
                 roomIsPlaying: false,
                 musicPaused: false,
-                timer: null
             }
         },
         created() {

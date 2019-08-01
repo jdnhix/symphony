@@ -10,7 +10,7 @@ import connectSocket from 'vue-socket.io'
 Vue.config.productionTip = false
 Vue.use(net)
 Vue.use(symphony)
-Vue.use(socketIO, 'http://localhost:3000')
+Vue.use(socketIO, 'ec2-54-242-132-128.compute-1.amazonaws.com:3000')
 Vue.use(connectSocket, '/connect')
 
 new Vue({

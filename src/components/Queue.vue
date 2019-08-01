@@ -64,11 +64,16 @@
         },
         methods: {
             async addSongToQueue(addedSong) {
+                var ID = function () {
+                    return '_' + Math.random().toString(36).substr(2, 9);
+                };
+
                 let song = {
                     roomId: this.roomId,
                     songName: addedSong.name,
                     artistName: addedSong.artists[0].name,
-                    songId: addedSong.uri,
+                    songId: ID(),
+                    uri: addedSong.uri,
                     coverArt: addedSong.album.images[0].url,
                     explicit: addedSong.explicit,
                     durationMS: addedSong.duration_ms

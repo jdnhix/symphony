@@ -11,7 +11,12 @@ module.exports = env => {
     let HOST
 
     if (ENV === 'development') {
-        HOST = 'http://localhost:3000'
+        // HOST = 'http://localhost:3000'
+        HOST = 'http://ec2-54-242-132-128.compute-1.amazonaws.com:3000'
+    }
+
+    if(ENV === 'qa') {
+        HOST = ''
     }
 
 

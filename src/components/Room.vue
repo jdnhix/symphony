@@ -16,7 +16,7 @@
         components: {Nav, RoomPlayer, Queue},
         data() {
             return {
-                roomId: null
+                roomId: null,
             }
         },
         methods: {
