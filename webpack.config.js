@@ -11,12 +11,12 @@ module.exports = env => {
     let HOST
 
     if (ENV === 'development') {
-        // HOST = 'http://localhost:3000'
-        HOST = 'http://ec2-54-242-132-128.compute-1.amazonaws.com:3000'
+        HOST = 'http://localhost:3000'
+
     }
 
     if(ENV === 'qa') {
-        HOST = ''
+        HOST = 'http://ec2-3-81-207-118.compute-1.amazonaws.com:3000'
     }
 
 
@@ -89,7 +89,6 @@ module.exports = env => {
             hot: true,
             noInfo: true,
             historyApiFallback: true //todo added this to get routes to work, check with cam if this is okay
-
         },
         performance: {
             hints: false

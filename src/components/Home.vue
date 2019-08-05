@@ -1,6 +1,5 @@
 <template>
     <div class="home">
-
         <Popup v-if="popupVisible" @close="popupVisible = false" :data="popupData"></Popup>
         <Nav class/>
 
