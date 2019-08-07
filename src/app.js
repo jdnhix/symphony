@@ -9,7 +9,7 @@ import socketIO from 'vue-socket.io'
 Vue.config.productionTip = false
 Vue.use(net)
 Vue.use(symphony)
-Vue.use(socketIO, 'ec2-3-81-207-118.compute-1.amazonaws.com:3000')
+Vue.use(socketIO, Vue.$symphonyConfig.wshost)
 
 
 new Vue({

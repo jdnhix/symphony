@@ -8,6 +8,7 @@
 
             <li v-if="room && !searchParam && queue" v-for="song in queue" class='list-card'>
                 <QueueItem
+                        :owner = owner
                         :add-voted-song = addVotedSong
                         v-bind:song=song :roomId=roomId />
             </li>
@@ -53,12 +54,15 @@
             },
             queue() {
                 return this.$store.state.queue.queue
+            },
+            owner() {
+                return this.$store.state.user.hostId === this.roomId
             }
         },
         watch: {
             searchParam : {
                 handler(newVal, oldVal) {
-                    this.$store.dispatch('getSearchResults', {params: {songName: this.searchParam, accessToken: this.$store.state.user.accessToken}})
+                    this.$store.dispatch('getSearchResults', {params: {songName: this.searchParam, accessToken: this.room.accessToken}})
                 }
             }
         },

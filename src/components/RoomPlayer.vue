@@ -18,19 +18,15 @@
 
             <div class="progression">Song Progression</div>
 
-            <div class="controls">
+            <div v-if="owner" class="controls">
                 <button @click="previousSong">previous</button>
-
 <!--                <button v-show="!roomIsPlaying" @click="nextSong">play(next song one)</button>-->
                 <button  v-show = 'musicPaused' @click="playSong">play</button>
                 <button  v-show= "!musicPaused" @click="pauseSong">pause</button>
-
                 <button @click="nextSong">next</button>
+                <button @click="getPlayback">Current Playback</button>
+                {{playback}}
             </div>
-
-            <button @click="getPlayback">Current Playback</button>
-            {{playback}}
-
 
         </div>
 
@@ -79,12 +75,20 @@
                 musicPaused: false,
             }
         },
-        created() {
+        beforeCreate() {
             this.$store.dispatch('getRoom', {params: {roomId: this.roomId}})
+            // this.$store
+            //     .dispatch('getRooms')
+            //     .catch(err => console.log('Error getting rooms', err))
         },
         computed: {
             room() {
+                // return this.$store.state.room.roomList.filter( (room) => {
+                //     return room._id === this.roomId
+                // })
                 return this.$store.state.room.selectedRoom || []
+                //todo not sure if this method or the former is better
+                //todo this method may become an issue when there are alot of rooms
             },
             currentSong() {
                 return this.$store.state.player.currentSong || {}
@@ -94,6 +98,9 @@
             },
             playback() {
                 return this.$store.state.player.playback
+            },
+            owner() {
+                return this.$store.state.user.hostId === this.roomId
             }
         },
         methods: {

@@ -1,5 +1,3 @@
-
-
 <template>
     <div id='app'>
         <router-view/>
@@ -14,29 +12,38 @@
     export default {
         name: 'App',
         components: {Home, Room},
-        mounted () {
-            window.onSpotifyWebPlaybackSDKReady = () => {}
+        mounted() {
+            window.onSpotifyWebPlaybackSDKReady = () => {
+            }
         },
-        sockets : {
-            connect: function() {
+        sockets: {
+            connect: function () {
                 console.log('socket connected')
             },
-            addSongToQueue : function (song) {
+            addSongToQueue: function (song) {
+                console.log('socket received')
                 this.$store.dispatch('addSongToQueue', song)
             },
-            removeQueueItem: function(params) {
+            removeQueueItem: function (params) {
                 this.$store.dispatch('removeQueueItem', params)
             },
             addRoom: function (room) {
                 this.$store.dispatch('addRoom', room)
             },
-            playSong: function (params){
+            changeAudienceSize: function (params){
+                this.$store.dispatch('changeAudienceSize', params)
+            },
+            setHostId: function (room) {
+                // console.log(room)
+                this.$store.dispatch('setHostId', room)
+            },
+            playSong: function (params) {
                 this.$store.dispatch('playSong', params)
             },
-            changeSongRank: function (params){
+            changeSongRank: function (params) {
                 this.$store.dispatch('changeSongRank', params)
             },
-            clearCurrentSong: function(clear){
+            clearCurrentSong: function (clear) {
                 this.$store.dispatch('clearCurrentSong', clear)
             }
         }
@@ -45,7 +52,7 @@
 </script>
 
 <style>
-    #app{
+    #app {
         width: 99vw;
         height: 100vh;
     }

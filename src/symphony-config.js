@@ -1,5 +1,6 @@
 const config = {
-    host: '${HOST}'
+    host: '${HOST}',
+    wshost: '${WSHOST}'
 }
 
 export default {

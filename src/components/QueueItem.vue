@@ -12,17 +12,17 @@
 
 
         <div class="rank">
-            <img @click="changeSongRank('inc')" src="../assets/img/upload.svg" class='arrow'/>
+            <img v-show="!votedOn" @click="changeSongRank('inc')" src="../assets/img/upload.svg" class='arrow'/>
 
             <!--            <img v-if="isVotedUp" @click="changeSongRank('inc')" src="../assets/img/upload.svg" class='arrow voted'/>-->
 
 
             <p class="rank__number">{{ song.rank }}</p>
-            <img @click="changeSongRank('dec')" src="../assets/img/download.svg" class='arrow'/>
+            <img v-show="!votedOn" @click="changeSongRank('dec')" src="../assets/img/download.svg" class='arrow'/>
 
         </div>
 
-        <div @click="removeQueueItem()" class="card__remove">X</div>
+        <div v-if="owner" @click="removeQueueItem()" class="card__remove">X</div>
 
     </div>
 
@@ -31,11 +31,10 @@
 <script>
     export default {
         name: 'QueueItem',
-        props: ['song', 'roomId'],
+        props: ['song', 'roomId', 'owner'],
         data() {
             return {
-                isVotedUp: false,
-                isVotedDown: false
+                votedOn: false
             }
         },
         methods: {
@@ -62,6 +61,7 @@
                 // }).then(() => {
                 //     this.sortQueue()
                 // })
+                this.votedOn = true
                 this.$socket.emit('changeSongRank', {direction: dir, song: this.song, roomId: this.roomId})
             },
         }

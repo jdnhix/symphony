@@ -37,6 +37,10 @@
         },
         mounted() {
             this.updateToken()
+            this.$socket.emit('join', this.roomId)
+        },
+        beforeDestroy() {
+            this.$socket.emit('leave', this.roomId)
         }
     }
 </script>

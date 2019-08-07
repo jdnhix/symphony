@@ -5,7 +5,8 @@ import querystring from 'querystring'
 export default {
     state: {
         accessToken: null,
-        refreshToken: null
+        refreshToken: null,
+        hostId: null
     },
     mutations: {
         commitAccessToken(state, payload) {
@@ -13,7 +14,11 @@ export default {
         },
         commitRefreshToken(state, payload){
             state.refreshToken = payload.refresh_token
+        },
+        commitHostId(state, payload){
+            state.hostId = payload._id
         }
+
     },
     actions: {
         async getCode({commit, dispatch}) {
@@ -43,7 +48,9 @@ export default {
                 console.log(res.data)
                 commit('commitAccessToken', res.data)
             })
-
+        },
+        setHostId({commit, dispatch}, room){
+            commit('commitHostId', room)
         }
     }
 

@@ -9,14 +9,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = env => {
     const ENV = env.NODE_ENV
     let HOST
+    let WSHOST
 
     if (ENV === 'development') {
         HOST = 'http://localhost:3000'
-
+        WSHOST = 'localhost:3000'
     }
 
     if(ENV === 'qa') {
-        HOST = 'http://ec2-3-81-207-118.compute-1.amazonaws.com:3000'
+        HOST = 'http://ec2-35-171-19-119.compute-1.amazonaws.com:3000'
+        WSHOST = 'ec2-35-171-19-119.compute-1.amazonaws.com:3000'
+        //change these whenever my ec2 dns changes
     }
 
 
@@ -67,6 +70,7 @@ module.exports = env => {
                     query: {
                         multiple: [
                             {search: '${HOST}', replace: HOST},
+                            {search: '${WSHOST}', replace: WSHOST}
                         ],
                     },
                 }

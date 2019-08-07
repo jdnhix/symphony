@@ -3,7 +3,7 @@ import Vue from 'vue'
 
 export default {
     state :{
-        roomList: null,
+        roomList: [],
         selectedRoom: null
     },
     mutations: {
@@ -17,6 +17,26 @@ export default {
             state.roomList.push(payload)
             console.log(payload)
         },
+        commitAudienceSize(state, payload) {
+            console.log(payload)
+            state.roomList = state.roomList.map((room) => {
+                if(room._id === payload.roomId){
+                    if(payload.dir === 'inc'){
+                        ++room.audienceSize
+                    } else {
+                        --room.audienceSize
+                    }
+                }
+            })
+
+            if(payload === 'inc'){
+                ++state.selectedRoom.audienceSize
+            } else {
+                --state.selectedRoom.audienceSize
+            }
+            console.log(state.selectedRoom.audienceSize)
+
+        }
     },
     actions: {
         getRooms({commit, dispatch}, params) {
@@ -41,6 +61,9 @@ export default {
         },
         addRoom({commit, dispatch}, room) {
             commit('pushRoom', room)
+        },
+        changeAudienceSize({commit}, params) {
+            commit('commitAudienceSize', params)
         }
     }
 

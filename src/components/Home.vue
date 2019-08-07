@@ -3,7 +3,7 @@
         <Popup v-if="popupVisible" @close="popupVisible = false" :data="popupData"></Popup>
         <Nav class/>
 
-        <ul>
+        <ul v-if="rooms.length">
             <li @click="goToRoom(room)" v-for="room in rooms" class="room-card">
                 <p>{{room.roomName}}</p>
                 <p>{{room.hostName}}</p>
@@ -12,6 +12,8 @@
                 <p>{{room.roomType}}</p>
             </li>
         </ul>
+
+        <h2 v-else>No rooms</h2>
 
     </div>
 
