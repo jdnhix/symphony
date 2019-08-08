@@ -51,6 +51,9 @@
 				</button>
 				{{ playback }}
 			</div>
+			<button @click="closeRoom">
+				Close Room
+			</button>
 		</div>
 	</div>
 </template>
@@ -88,7 +91,7 @@ function Timer(callback, delay) {
 
 export default {
 	name: 'RoomState',
-	components: {WebPlayer},
+	components: { WebPlayer },
 	props: [
 		'roomId'
 	],
@@ -155,6 +158,10 @@ export default {
 		},
 		getPlayback() {
 			this.$store.dispatch('getPlayback', {token: this.accessToken})
+		},
+		closeRoom(){
+			this.$socket.emit('closeRoom', {roomId: this.roomId})
+			this.$router.push({path: '/'})
 		}
 	},
 	sockets: {

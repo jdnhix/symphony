@@ -44,6 +44,9 @@ export default {
 		},
 		clearCurrentSong: function (clear) {
 			this.$store.dispatch('clearCurrentSong', clear)
+		},
+		closeRoom: function (params) {
+			this.$store.dispatch('closeRoom', params)
 		}
 	}
 }
