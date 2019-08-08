@@ -11,28 +11,28 @@ Vue.use(VueRouter)
 
 
 const router = new VueRouter({
-    mode: 'history',
-    routes: [
-        {
-            path: '*',
-            component: Home
-        },
-        {
-            path: '/',
-            component: Home
-            // redirect: () => {
-            //     return '/home'
-            // }
-        },
-        {
-            path:'/room',
-            component: Room
-        },
-        {
-            path:'/setup',
-            component: RoomSetup
-        }
-    ]
+	mode: 'history',
+	routes: [
+		{
+			path: '*',
+			component: Home
+		},
+		{
+			path: '/',
+			component: Home
+			// redirect: () => {
+			//     return '/home'
+			// }
+		},
+		{
+			path:'/room',
+			component: Room
+		},
+		{
+			path:'/setup',
+			component: RoomSetup
+		}
+	]
 
 
 

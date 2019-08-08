@@ -13,9 +13,9 @@ Vue.use(socketIO, Vue.$symphonyConfig.wshost)
 
 
 new Vue({
-    el: '#app',
-    render: a => a(App),
-    router,
-    store
+	el: '#app',
+	render: a => a(App),
+	router,
+	store
 })
 

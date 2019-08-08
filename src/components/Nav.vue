@@ -1,30 +1,35 @@
 <template>
-    <div class='nav'>
+	<div class="nav">
+		<p class="title">
+			<a href="/">Symphony</a>
+		</p>
 
-        <p class="title"><a href="/">Symphony</a></p>
-
-        <div class='button'>
-
-            <button class='button__item'>About</button>
-            <button v-on:click="login" class='button__item'>Create Room</button>
-
-        </div>
-
-    </div>
+		<div class="button">
+			<button class="button__item">
+				About
+			</button>
+			<button
+				class="button__item"
+				@click="login"
+			>
+				Create Room
+			</button>
+		</div>
+	</div>
 </template>
 
 
 <script>
-    import Vue from 'vue'
+import Vue from 'vue'
 
-    export default {
-        name: 'Nav',
-        methods: {
-            login() {
-                this.$store.dispatch('getCode')
-            }
-        }
-    }
+export default {
+	name: 'Nav',
+	methods: {
+		login() {
+			this.$store.dispatch('getCode')
+		}
+	}
+}
 
 </script>
 

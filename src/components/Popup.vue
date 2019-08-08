@@ -1,40 +1,51 @@
 <template>
-    <div class="modal-backdrop">
-        <div class="modal modal-body">
-            <div>
-                <input v-model="password" placeholder="Enter Room Password" type="text" required>
-                <button @click="submitPassword">Enter Room</button>
-                <button @click="close">Return</button>
-            </div>
-        </div>
-    </div>
+	<div class="modal-backdrop">
+		<div class="modal modal-body">
+			<div>
+				<input
+					v-model="password"
+					placeholder="Enter Room Password"
+					type="text"
+					required
+				>
+				<button @click="submitPassword">
+					Enter Room
+				</button>
+				<button @click="close">
+					Return
+				</button>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
-    export default {
-        name: "Popup",
-        props: ['data'],
-        data() {
-            return {
-                password: null,
-                room: this.data
-            }
-        },
-        methods: {
-            close() {
-                this.$emit('close');
-            },
-            submitPassword() {
-                if(this.password === this.room.password) {
-                    const info = this.room
-                    this.$router.push({path: '/room', query: {roomId: info._id}})
-                } else {
-                    this.password = ''
-                    alert('incorrect password')
-                }
-            }
-        },
-    }
+export default {
+	name: "Popup",
+	props: [
+		'data'
+	],
+	data() {
+		return {
+			password: null,
+			room: this.data
+		}
+	},
+	methods: {
+		close() {
+			this.$emit('close');
+		},
+		submitPassword() {
+			if(this.password === this.room.password) {
+				const info = this.room
+				this.$router.push({path: '/room', query: {roomId: info._id}})
+			} else {
+				this.password = ''
+				alert('incorrect password')
+			}
+		}
+	},
+}
 </script>
 
 <style scoped>
