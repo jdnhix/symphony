@@ -24,13 +24,13 @@ jobs:
          - persist_to_workspace:
               root: .
               paths:
-                 - ./dist
+                 - dist
    deploy:
       docker:
          - image: circleci/python:3.7-stretch
       steps:
          - attach_workspace:
-              - at: ./dist
+              at: .
          - run:
               name: Install awscli
               command: sudo pip install awscli
