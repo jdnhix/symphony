@@ -23,7 +23,7 @@ jobs:
                command: npm run build:qa
    deploy:
       docker:
-         - image: circleci/node:lts
+         - image: circleci/python:3.7-stretch
       steps:
          - run:
               name: Install awscli
