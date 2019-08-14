@@ -21,10 +21,16 @@ jobs:
          -  run: # run tests
                name: build qa
                command: npm run build:qa
+         - persist_to_workspace:
+              root: .
+              paths:
+                 - ./dist
    deploy:
       docker:
          - image: circleci/python:3.7-stretch
       steps:
+         - attach_workspace:
+              - at: .
          - run:
               name: Install awscli
               command: sudo pip install awscli
