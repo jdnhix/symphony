@@ -12,7 +12,7 @@ Vue.use(net)
 Vue.use(symphony)
 Vue.use(vueSocketIO, socketio(Vue.$symphonyConfig.wshost), store)
 
-
+// cameron was here
 new Vue({
 	el: '#app',
 	render: a => a(App),
