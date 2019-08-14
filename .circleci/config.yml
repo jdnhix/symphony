@@ -2,7 +2,7 @@ version: 2
 jobs:
    build:
       docker:
-         -  image: circleci/node:4.8.2
+         -  image: circleci/node:lts
       steps:
          - checkout
          -  run:
@@ -23,7 +23,7 @@ jobs:
                command: npm run build:qa
    deploy:
       docker:
-         - image: circleci/node:4.8.2
+         - image: circleci/node:lts
       steps:
          - run:
               name: Install awscli
