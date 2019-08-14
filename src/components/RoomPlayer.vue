@@ -2,11 +2,11 @@
 	<div class="room-player">
 		<div class="room-info">
 			<div class="room-info__title">
-				<h1>{{ room.roomName }}</h1>
+				<h1>{{ room && room.roomName }}</h1>
 				<h3>{{ room.hostName }}</h3>
 			</div>
 			<p class="'room-info__audience-count">
-				{{ room.audienceSize }}
+				{{ room && room.audienceSize }}
 			</p>
 		</div>
 
@@ -38,7 +38,7 @@
 					play
 				</button>
 				<button
-					v-show="!musicPaused"
+					v-show="!musicPaused && roomIsPlaying"
 					@click="pauseSong"
 				>
 					pause
@@ -142,7 +142,7 @@ export default {
 		},
 		nextSong() {
 			this.roomIsPlaying = true
-			const song = this.room.queue[0]
+			const song = this.room.queue[0] //todo should probably get song from queue state instead
 			if (song) {
 				console.log('song started')
 				this.$socket.emit('playSong', {token: this.accessToken, song: song, roomId: this.roomId})

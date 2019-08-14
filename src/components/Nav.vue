@@ -5,9 +5,6 @@
 		</p>
 
 		<div class="button">
-			<button class="button__item">
-				About
-			</button>
 			<button
 				class="button__item"
 				@click="login"

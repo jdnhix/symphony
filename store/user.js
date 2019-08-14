@@ -11,6 +11,7 @@ export default {
 	mutations: {
 		commitAccessToken(state, payload) {
 			state.accessToken = payload.access_token
+			console.log(payload.expires_in)
 		},
 		commitRefreshToken(state, payload) {
 			state.refreshToken = payload.refresh_token

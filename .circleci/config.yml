@@ -1,0 +1,45 @@
+version: 2
+jobs:
+   build:
+      docker:
+         -  image: circleci/node:4.8.2
+      steps:
+         - checkout
+         -  run:
+               name: update-npm
+               command: 'sudo npm install -g npm@latest'
+         -  restore_cache: # special step to restore the dependency cache
+               # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+               key: dependency-cache-{{ checksum "package.json" }}
+         -  run:
+               name: install-npm-wee
+               command: npm install
+         -  save_cache: # special step to save the dependency cache
+               key: dependency-cache-{{ checksum "package.json" }}
+               paths:
+                  - ./node_modules
+         -  run: # run tests
+               name: build qa
+               command: npm run build:qa
+   deploy:
+      docker:
+         - image: circleci/node:4.8.2
+      steps:
+         - run:
+              name: Install awscli
+              command: sudo pip install awscli
+         - run:
+              name: Deploy to S3
+              command: aws s3 sync ./dist s3://jdh-symphony-bucket
+
+workflows:
+   version: 2
+   build-deploy:
+      jobs:
+         - build
+         - deploy:
+              requires:
+                 - build
+              filters:
+                 branches:
+                    only: master

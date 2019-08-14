@@ -10,12 +10,16 @@ import createPersistedState from 'vuex-persistedstate'
 Vue.use(Vuex)
 
 const modules = {
-    room,
-    user,
-    queue,
-    player,
+	room,
+	user,
+	queue,
+	player,
 }
 
-const store = new Vuex.Store({modules, plugins: [createPersistedState({paths: ['user'], key: 'vuex', storage: window.sessionStorage})]})
+const store = new Vuex.Store({modules, plugins: [
+	createPersistedState({paths: [
+		'user'
+	], key: 'vuex', storage: window.sessionStorage})
+]})
 
 export default store

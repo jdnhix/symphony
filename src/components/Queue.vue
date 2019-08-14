@@ -21,9 +21,9 @@
 				/>
 			</li>
 
-			<p v-if="!queue[0] && !searchParam">
+			<h3 v-if="!queue[0] && !searchParam">
 				No songs in queue
-			</p>
+			</h3>
 
 			<li
 				v-for="song in searchResults"
@@ -79,7 +79,8 @@ export default {
 				this.$store.dispatch('getSearchResults', {
 					params: {
 						songName: this.searchParam,
-						accessToken: this.room.accessToken
+						accessToken: this.room.accessToken,
+						refreshToken: this.room.refreshToken
 					}
 				})
 			}

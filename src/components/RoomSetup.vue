@@ -1,11 +1,7 @@
 <template>
 	<div>
 		<Nav />
-		room setup page
-		<br>
-		Access token: {{ this.$store.state.user.accessToken }}
-		<br><br><br>
-
+		<h2>Room Creation</h2>
 		<form>
 			Room Name
 			<input
@@ -93,7 +89,8 @@ export default {
 				roomType: this.roomType,
 				password: this.password,
 				downVoteLimit: this.downVoteLimit,
-				accessToken: this.$store.state.user.accessToken
+				accessToken: this.$store.state.user.accessToken,
+				refreshToken: this.$store.state.user.refreshToken
 			}
 			this.$socket.emit('addRoom', roomInfo)
 			// this.$router.push({ path: '/room', query: {roomId: ._id} }) todo i want to make so that it goes directly to the room

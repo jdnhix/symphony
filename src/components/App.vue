@@ -20,6 +20,9 @@ export default {
 		connect: function () {
 			console.log('socket connected')
 		},
+		disconnect: function () {
+			console.log('socket disconnected')
+		},
 		addSongToQueue: function (song) {
 			console.log('socket received')
 			this.$store.dispatch('addSongToQueue', song)
@@ -28,6 +31,7 @@ export default {
 			this.$store.dispatch('removeQueueItem', params)
 		},
 		addRoom: function (room) {
+
 			this.$store.dispatch('addRoom', room)
 		},
 		changeAudienceSize: function (params) {

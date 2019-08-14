@@ -16,11 +16,10 @@ export default {
 		},
 		pushRoom(state, payload) {
 			state.roomList.push(payload)
-			console.log(payload)
 		},
 		// todo get this to work
 		commitAudienceSize(state, payload) {
-			console.log(payload)
+			// console.log(payload)
 			state.roomList = state.roomList.map((room) => {
 				if(room._id === payload.roomId){
 					if(payload.dir === 'inc'){

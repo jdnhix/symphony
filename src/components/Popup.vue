@@ -7,8 +7,11 @@
 					placeholder="Enter Room Password"
 					type="text"
 					required
+					autofocus
 				>
-				<button @click="submitPassword">
+				<button
+					@click="submitPassword"
+				>
 					Enter Room
 				</button>
 				<button @click="close">
