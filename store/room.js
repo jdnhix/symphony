@@ -42,6 +42,9 @@ export default {
 		        return room._id !== payload.roomId
 			})
 		    
+		},
+		SOCKET_UPDATETOKEN(state, token){
+			state.selectedRoom.accessToken = token[0]
 		}
 	},
 	actions: {

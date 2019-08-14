@@ -7,7 +7,7 @@
 		/>
 		<Nav class />
 
-		<ul v-if="rooms.length">
+		<ul v-if="rooms && rooms.length">
 			<li
 				v-for="room in rooms"
 				class="room-card"

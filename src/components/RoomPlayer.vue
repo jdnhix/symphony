@@ -63,7 +63,7 @@
 import WebPlayer from './WebPlayer.vue'
 
 
-//todo delete this if not needed
+//todo delete this if i dont use it for my song slider
 function Timer(callback, delay) {
 	var args = arguments,
 		self = this,
@@ -106,8 +106,7 @@ export default {
 			// return this.$store.state.room.roomList.filter( (room) => {
 			//     return room._id === this.roomId
 			// })
-			return this.$store.state.room.selectedRoom || [
-			]
+			return this.$store.state.room.selectedRoom || []
 			//todo not sure if this method or the former is better
 			//todo this method may become an issue when there are alot of rooms
 		},
@@ -124,11 +123,14 @@ export default {
 			return this.$store.state.user.hostId === this.roomId
 		}
 	},
-	beforeCreate() {
+	mounted() {
 		this.$store.dispatch('getRoom', {params: {roomId: this.roomId}})
 		// this.$store
 		//     .dispatch('getRooms')
 		//     .catch(err => console.log('Error getting rooms', err))
+	},
+	beforeMount (){
+		this.leaveRoom()
 	},
 	methods: {
 		pauseSong() {
@@ -162,6 +164,9 @@ export default {
 		closeRoom(){
 			this.$socket.emit('closeRoom', {roomId: this.roomId})
 			this.$router.push({path: '/'})
+		},
+		leaveRoom(){
+			this.$store.state.room.selectedRoom = null
 		}
 	},
 	sockets: {

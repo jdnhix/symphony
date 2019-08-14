@@ -7,7 +7,7 @@ module.exports = {
     rules: {
         // override/add rules settings here, such as:
         // 'vue/no-unused-vars': 'error'
-        "array-bracket-newline": ["error", "always"],
+        // "array-bracket-newline": ["error", "always"],
 
         "padding-line-between-statements": [
             "error",

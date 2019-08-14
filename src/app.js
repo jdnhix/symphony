@@ -10,7 +10,7 @@ import socketio from 'socket.io-client'
 Vue.config.productionTip = false
 Vue.use(net)
 Vue.use(symphony)
-Vue.use(vueSocketIO, socketio(Vue.$symphonyConfig.wshost))
+Vue.use(vueSocketIO, socketio(Vue.$symphonyConfig.wshost), store)
 
 
 new Vue({

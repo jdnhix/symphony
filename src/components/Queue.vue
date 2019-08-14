@@ -76,18 +76,29 @@ export default {
 	watch: {
 		searchParam: {
 			handler(newVal, oldVal) {
-				this.$store.dispatch('getSearchResults', {
-					params: {
-						songName: this.searchParam,
-						accessToken: this.room.accessToken,
-						refreshToken: this.room.refreshToken
-					}
+				this.$socket.emit('songSearch', {
+					songName: this.searchParam,
+					accessToken: this.room.accessToken,
+					refreshToken: this.room.refreshToken,
+					roomId: this.roomId
 				})
+				// todo below is the old way, delete eventually
+				// this.$store.dispatch('getSearchResults', {
+				// 	params: {
+				// 		songName: this.searchParam,
+				// 		accessToken: this.room.accessToken,
+				// 		refreshToken: this.room.refreshToken
+				// 	}
+				// })
 			}
 		}
 	},
-	created() {
+	mounted() {
+
 		this.getRoom()
+	},
+	beforeMount() {
+		this.leaveRoom()
 	},
 	methods: {
 		async addSongToQueue(addedSong) {
@@ -117,6 +128,9 @@ export default {
 		},
 		addVotedSong(song) {
 			this.votedSongs.push(song)
+		},
+		leaveRoom(){
+			this.$store.state.room.selectedRoom = null
 		}
 	}
 }

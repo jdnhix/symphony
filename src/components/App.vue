@@ -24,7 +24,7 @@ export default {
 			console.log('socket disconnected')
 		},
 		addSongToQueue: function (song) {
-			console.log('socket received')
+
 			this.$store.dispatch('addSongToQueue', song)
 		},
 		removeQueueItem: function (params) {
@@ -51,7 +51,10 @@ export default {
 		},
 		closeRoom: function (params) {
 			this.$store.dispatch('closeRoom', params)
-		}
+		},
+		updateToken: function(params) {
+			console.log(`New token: ${params.newAccessToken}`)
+		},
 	}
 }
 

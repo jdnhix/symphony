@@ -57,7 +57,7 @@
 			><br><br>
 		</form>
 
-		<button @click="makeRoom">
+		<button :disabled="!formCompleted" @click="makeRoom">
 			Create
 		</button>
 	</div>
@@ -76,6 +76,15 @@ export default {
 			roomType: '',
 			password: '',
 			downVoteLimit: 0,
+		}
+	},
+	computed: {
+		formCompleted () {
+			if(this.roomType === 'public'){
+				return (this.roomType.length && this.roomName.length && this.hostName.length) > 0
+			} else if (this.roomType === 'private') {
+				return (this.roomType.length && this.roomName.length && this.hostName.length && this.password.length) > 0
+			}
 		}
 	},
 	mounted() {

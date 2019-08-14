@@ -4,8 +4,7 @@ import Vue from 'vue'
 export default {
 	state: {
 		searchResults: null,
-		queue: [
-		]
+		queue: []
 	},
 	mutations: {
 		commitSearchResults(state, payload) {
@@ -46,6 +45,10 @@ export default {
 			state.queue = state.queue.sort((a,b) => {
 				return b.rank - a.rank
 			})
+		},
+		SOCKET_SONGSEARCHRESULTS(state, results){
+			console.log(results)
+			state.searchResults = results[0]
 		}
 	},
 	actions: {
