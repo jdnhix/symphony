@@ -162,6 +162,11 @@ export default {
 			this.$store.dispatch('getPlayback', {token: this.accessToken})
 		},
 		closeRoom(){
+			//when the host closes a room:
+			// music needs to stop DONE
+			// make a popup appear prompting users to go back to the home page
+			//room needs to be removed from room list and db DONE
+			this.pauseSong()
 			this.$socket.emit('closeRoom', {roomId: this.roomId})
 			this.$router.push({path: '/'})
 		},
