@@ -2,6 +2,12 @@
 	<div class="room">
 		<RoomPlayer :room-id="this.roomId" />
 		<Queue :room-id="this.roomId" />
+		<button
+			class="home-button"
+			@click="goHome"
+		>
+			HOME
+		</button>
 	</div>
 </template>
 
@@ -40,6 +46,9 @@ export default {
 				console.log('refreshing token')
 				this.$store.dispatch('refreshAccessToken', {refreshToken: this.$store.state.user.refreshToken})
 			}, 36000000)
+		},
+		goHome(){
+			this.$router.push({path: '/'})
 		}
 	}
 }
@@ -54,6 +63,11 @@ export default {
         width: 100%;
         height: 100%;
     }
+
+	.home-button {
+		height: 20px;
+		float: right;
+	}
 
 
 </style>

@@ -41,7 +41,6 @@ export default {
 		    state.roomList = state.roomList.map(room => {
 		        return room._id !== payload.roomId
 			})
-		    
 		},
 		SOCKET_UPDATETOKEN(state, token){
 			state.selectedRoom.accessToken = token[0]
