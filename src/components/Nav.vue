@@ -1,16 +1,21 @@
 <template>
-	<div class="nav">
-		<p class="title">
-			<a href="/">Symphony</a>
-		</p>
+	<div class="nav w-100">
+		<div class="title pl2 w-100 flex flex-column flex-row justify-between">
+			<div>
+				<a
+					class="white"
+					href="/"
+				>Symphony</a>
+			</div>
 
-		<div class="button">
-			<button
-				class="button__item"
-				@click="login"
-			>
-				Create Room
-			</button>
+			<div class="button">
+				<button
+					class="button__item"
+					@click="login"
+				>
+					Create Room
+				</button>
+			</div>
 		</div>
 	</div>
 </template>

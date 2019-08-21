@@ -60,9 +60,9 @@ export default {
 
 </script>
 
+<style src="../css/base.scss" lang="scss" />
 <style>
-    #app {
-        width: 99vw;
-        height: 100vh;
-    }
+
+
+
 </style>

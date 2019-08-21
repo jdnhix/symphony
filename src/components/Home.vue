@@ -72,10 +72,12 @@ export default {
 <style scoped>
 
     .home {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+        /*display: flex;*/
+        /*flex-direction: column;*/
+        /*align-items: center;*/
+		background-image: linear-gradient(to bottom, #22223b, #6b6b7c);
+
+	}
 
     .search {
         margin: 50px 0 20px 0;
