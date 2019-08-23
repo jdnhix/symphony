@@ -34,19 +34,12 @@ export default {
 		}
 	},
 	mounted() {
-		this.updateToken()
 		this.$socket.emit('join', this.roomId)
 	},
 	beforeDestroy() {
 		this.$socket.emit('leave', this.roomId)
 	},
 	methods: {
-		updateToken() {
-			setTimeout( ()=>{
-				console.log('refreshing token')
-				this.$store.dispatch('refreshAccessToken', {refreshToken: this.$store.state.user.refreshToken})
-			}, 36000000)
-		},
 		goHome(){
 			this.$router.push({path: '/'})
 		}
