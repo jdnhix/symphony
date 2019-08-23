@@ -1,15 +1,25 @@
 <template>
 	<div>
 		<div class="card">
+
 			<div class="card-header">
-				<p>{{ room.roomName }}</p>
-				<p>{{ room.hostName }}</p>
-				<p>{{ room.roomType }}</p>
+				<p class="room-name">{{ room.roomName }}</p>
+				<p class="room-host">Hosted by: {{ room.hostName }}</p>
+
+				<img v-if="room.roomType === 'private'" src="../assets/img/lock-solid (1).svg" class="room-lock"/>
+				<img v-else src="../assets/img/unlock-solid.svg" class="room-lock"/>
+
+			</div>
+
+			<br>
+
+			<div class="card-footer">
+				<p>{{ room.audienceSize }}</p>
+				<p>{{ room.currentSong.songName }} - {{ room.currentSong.artistName }}</p>
 			</div>
 
 
-			<p>{{ room.audienceSize }}</p>
-			<p>{{ room.currentSong.songName }} - {{ room.currentSong.artistName }}</p>
+
 		</div>
 	</div>
 </template>
@@ -21,7 +31,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 	@import '../css/variables.scss';
 
 
@@ -30,7 +40,9 @@ export default {
 		height: 260px;
 		border-radius: 5px;
 		box-shadow: none;
-		border: 1px solid black;
+		border: 1px solid #4a4e69;
+		margin: 10px;
+		display: block;
 	}
 
 	.card:hover {
@@ -39,7 +51,35 @@ export default {
 	}
 
 	.card-header{
-		background: $color;
+		background: $color-navy;
+		width: 100%;
+		height: 28%;
+		position: relative;
+		margin: 0;
+		border-radius: 5px 5px 0 0;
+		display: block;
+
+	}
+
+	.room-name {
+		font-size: 2.5rem;
+		font-weight: bold;
+		text-align: left;
+		padding: 7px 0 0 10px;
+		margin: 0;
+		height: 40px;
+	}
+
+	.room-host {
+		font-size: 1.6rem;
+		font-weight: 200;
+		margin: 0;
+	}
+
+
+	.card-footer {
+		position: relative;
+		top: 100px;
 	}
 
 </style>
