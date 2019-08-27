@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<div class="card">
+			<img :src="room.currentSong.coverArt" class="room-coverart"/>
 
 			<div class="card-header">
 				<p class="room-name">{{ room.roomName }}</p>
@@ -8,14 +9,13 @@
 
 				<img v-if="room.roomType === 'private'" src="../assets/img/lock-solid (1).svg" class="room-lock"/>
 				<img v-else src="../assets/img/unlock-solid.svg" class="room-lock"/>
-
 			</div>
 
 			<br>
 
 			<div class="card-footer">
-				<p>{{ room.audienceSize }}</p>
-				<p>{{ room.currentSong.songName }} - {{ room.currentSong.artistName }}</p>
+				<img src="../assets/img/headphones-solid.svg" class="ma0 pa0"/>
+				<p class="ma0 room-songname">{{ room.currentSong.songName }} - {{ room.currentSong.artistName }}</p>
 			</div>
 
 
@@ -34,7 +34,6 @@ export default {
 <style lang="scss" scoped>
 	@import '../css/variables.scss';
 
-
 	.card {
 		width: 260px;
 		height: 260px;
@@ -43,11 +42,21 @@ export default {
 		border: 1px solid #4a4e69;
 		margin: 10px;
 		display: block;
+		position: relative;
+
 	}
 
 	.card:hover {
 		cursor: pointer;
-		box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.16);
+		box-shadow: 0 0 8px 5px rgba(0, 0, 0, 0.16);
+	}
+
+	.room-coverart {
+		position: absolute;
+		width: auto;
+		border-radius: 5px;
+		/*-webkit-filter: blur(10px);*/
+		/*filter: blur(10px);*/
 	}
 
 	.card-header{
@@ -74,12 +83,32 @@ export default {
 		font-size: 1.6rem;
 		font-weight: 200;
 		margin: 0;
+		padding: 3px 0 0 10px;
 	}
 
+	.room-lock {
+		position: relative;
+		left: 230px;
+		bottom: 20px;
+
+	}
 
 	.card-footer {
-		position: relative;
-		top: 100px;
+		position: absolute;
+		height: 20%;
+		width: 100%;
+		background: $color-navy;
+		bottom: 0;
+		border-radius: 0 0 5px 5px;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.room-songname {
+		font-size: 1.6rem;
+		font-weight: 200;
+		text-align: left;
 	}
 
 </style>

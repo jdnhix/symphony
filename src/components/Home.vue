@@ -9,15 +9,17 @@
 
 		<h2>Description text here</h2>
 
-		<ul v-if="rooms && rooms.length">
+		<ul
+			v-if="rooms && rooms.length"
+			class="room-list"
+		>
 			<li
 				v-for="room in rooms"
-				class="room-list"
 				@click="goToRoom(room)"
+				class = "room-list-card"
 			>
 				<RoomCard
 					:room="room"
-					class="room-cards"
 				/>
 			</li>
 		</ul>
@@ -90,6 +92,16 @@ export default {
 
 	.room-list {
 		list-style: none;
+		display: flex;
+		flex-direction: row;
+		position: relative;
+		top: 20%;
+		right: 10%
+
+	}
+
+	.room-list-card {
+		margin: 10px;
 	}
 
 
