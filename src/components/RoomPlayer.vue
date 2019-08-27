@@ -54,6 +54,11 @@
 			<button @click="closeRoom">
 				Close Room
 			</button>
+			<button @click="getDevices">
+				Get Devices
+			</button>
+			{{ devices }}
+<!--			todo add select box here-->
 		</div>
 	</div>
 </template>
@@ -121,6 +126,9 @@ export default {
 		},
 		owner() {
 			return this.$store.state.user.hostId === this.roomId
+		},
+		devices(){
+			return this.$store.state.user.devices
 		}
 	},
 	mounted() {
@@ -172,6 +180,9 @@ export default {
 		},
 		leaveRoom(){
 			this.$store.state.room.selectedRoom = null
+		},
+		getDevices(){
+			this.$socket.emit('getDevices', {token: this.room.accessToken})
 		}
 	},
 	sockets: {

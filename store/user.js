@@ -6,7 +6,8 @@ export default {
 	state: {
 		accessToken: null,
 		refreshToken: null,
-		hostId: null
+		hostId: null,
+		devices: null,
 	},
 	mutations: {
 		commitAccessToken(state, payload) {
@@ -18,6 +19,10 @@ export default {
 		},
 		commitHostId(state, payload) {
 			state.hostId = payload._id
+		},
+		SOCKET_GETDEVICES(state, payload){
+			console.log(payload)
+			state.devices = payload
 		}
 
 	},

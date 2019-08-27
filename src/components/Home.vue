@@ -91,12 +91,14 @@ export default {
     }
 
 	.room-list {
+		width: 85%;
+		padding-left: 10%;
 		list-style: none;
 		display: flex;
 		flex-direction: row;
 		position: relative;
 		top: 20%;
-		right: 10%
+		right: 10%;
 
 	}
 
@@ -105,10 +107,7 @@ export default {
 	}
 
 
-    ul {
-        width: 75%;
-        max-width: 1000px;
-    }
+
 
 
 </style>

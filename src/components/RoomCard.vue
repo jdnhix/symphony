@@ -35,8 +35,8 @@ export default {
 	@import '../css/variables.scss';
 
 	.card {
-		width: 260px;
-		height: 260px;
+		width: 300px;
+		height: 300px;
 		border-radius: 5px;
 		box-shadow: none;
 		border: 1px solid #4a4e69;
@@ -71,7 +71,7 @@ export default {
 	}
 
 	.room-name {
-		font-size: 2.5rem;
+		font-size: 2.6rem;
 		font-weight: bold;
 		text-align: left;
 		padding: 7px 0 0 10px;
@@ -80,7 +80,7 @@ export default {
 	}
 
 	.room-host {
-		font-size: 1.6rem;
+		font-size: 1.7rem;
 		font-weight: 200;
 		margin: 0;
 		padding: 3px 0 0 10px;
@@ -88,8 +88,9 @@ export default {
 
 	.room-lock {
 		position: relative;
-		left: 230px;
-		bottom: 20px;
+		left: 265px;
+		bottom: 23px;
+		width: 20px;
 
 	}
 
@@ -106,7 +107,7 @@ export default {
 	}
 
 	.room-songname {
-		font-size: 1.6rem;
+		font-size: 1.7rem;
 		font-weight: 200;
 		text-align: left;
 	}
