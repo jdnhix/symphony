@@ -1,7 +1,11 @@
 <template>
 	<div>
 		<div class="card">
-			<img :src="room.currentSong.coverArt" class="room-coverart"/>
+			<div class="room-coverart">
+				<div>
+					<img :src="room.currentSong.coverArt"/>
+				</div>
+			</div>
 
 			<div class="card-header">
 				<p class="room-name">{{ room.roomName }}</p>
@@ -43,6 +47,7 @@ export default {
 		margin: 10px;
 		display: block;
 		position: relative;
+		overflow: hidden;
 
 	}
 
@@ -55,8 +60,9 @@ export default {
 		position: absolute;
 		width: auto;
 		border-radius: 5px;
-		/*-webkit-filter: blur(10px);*/
-		/*filter: blur(10px);*/
+		backdrop-filter: blur(2px);
+		opacity: .9;
+		filter: blur(7px) brightness(1.5) saturate(.7) contrast(.4);
 	}
 
 	.card-header{

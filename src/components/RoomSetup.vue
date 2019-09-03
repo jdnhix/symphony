@@ -1,65 +1,74 @@
 <template>
-	<div>
-		<Nav />
-		<h2>Room Creation</h2>
-		<form>
-			Room Name
-			<input
-				v-model="roomName"
-				type="text"
-				placeholder="Enter Room Name"
-				required
-			><br>
+	<div class="room-setup vh-100">
+		<div class="room-setup__card center">
+			<form>
+				<div class="input-field">
+					<h2 class="input-field__name">
+						ROOM NAME
+					</h2>
+					<input
+						v-model="roomName"
+						type="text"
+						required
+						class="input-textbox"
+					>
+				</div>
 
-			Host Name
-			<input
-				v-model="hostName"
-				type="text"
-				placeholder="Enter Host Name"
-				required
-			><br>
+				<div class="input-field">
+					<h2 class="input-field__name">
+						HOST NAME
+					</h2>
+					<input
+						v-model="hostName"
+						type="text"
+						required
+						class="input-textbox"
+					>
+				</div>
 
-			RoomType<br>
-			<label for="public">Public</label>
-			<input
-				id="public"
-				v-model="roomType"
-				type="radio"
-				value="public"
-				required
+				<div class="input-field">
+					<h2>ROOM TYPE</h2>
+					<label for="public">Public</label>
+					<input
+						id="public"
+						v-model="roomType"
+						type="radio"
+						value="public"
+						required
+					>
+					<label for="private">Private</label>
+					<input
+						id="private"
+						v-model="roomType"
+						type="radio"
+						value="private"
+						required
+					>
+					<div v-if="roomType === 'private'">
+						Password
+						<input
+							v-model="password"
+							type="text"
+							placeholder="Enter Password"
+						><br>
+					</div>
+				</div>
+
+				<br><br>
+			</form>
+			<button
+				:disabled="!formCompleted"
+				class="submit-button"
+				@click="makeRoom"
 			>
-			<label for="private">Private</label>
-			<input
-				id="private"
-				v-model="roomType"
-				type="radio"
-				value="private"
-				required
-			><br>
-
-			<div v-if="roomType === 'private'">
-				Password
-				<input
-					v-model="password"
-					type="text"
-					placeholder="Enter Password"
-				><br>
-			</div>
-
-
-			Down Vote Limit
-			<input
-				v-model="downVoteLimit"
-				type="number"
-				min="0"
-				value="0"
-				required
-			><br><br>
-		</form>
-
-		<button :disabled="!formCompleted" @click="makeRoom">
-			Create
-		</button>
+				ADD ROOM
+			</button>
+			<button
+				class="submit-button"
+			>
+				CANCEL
+			</button>
+		</div>
 	</div>
 </template>
 
@@ -110,6 +119,65 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+	@import '../css/variables.scss';
+
+
+	.room-setup {
+		background: $color-navy;
+		color: $color-cream;
+	}
+
+	.room-setup__card {
+		background: $color-lightnavy;
+		height: 500px;
+		width: 870px;
+		border-radius: 5px;
+		font-size: 2.5rem;
+		font-weight: bold;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-evenly;
+
+	}
+
+	.center {
+		margin: 0;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		-ms-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
+	}
+
+	.input-textbox {
+		border: solid 1px $color-cream;
+		border-radius: 2px;
+		background: none;
+		width: 250px;
+		height: 50px;
+
+	}
+
+	h2 {
+		margin: 0;
+
+	}
+
+	.input-field {
+		text-align: center;
+		margin: 2rem;
+	}
+
+	.input-field__name {
+		margin-bottom: 7px;
+	}
+
+	.submit-button {
+
+	}
+
+
 
 </style>
