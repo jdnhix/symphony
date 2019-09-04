@@ -27,7 +27,9 @@
 				</div>
 
 				<div class="input-field">
-					<h2>ROOM TYPE</h2>
+					<h2 class="input-field__name">
+						ROOM TYPE
+					</h2>
 					<label for="public">Public</label>
 					<input
 						id="public"
@@ -53,21 +55,23 @@
 						><br>
 					</div>
 				</div>
-
-				<br><br>
+				<p class="room-type__text">Anyone can access public rooms, but private rooms require a password</p>
 			</form>
-			<button
-				:disabled="!formCompleted"
-				class="submit-button"
-				@click="makeRoom"
-			>
-				ADD ROOM
-			</button>
-			<button
-				class="submit-button"
-			>
-				CANCEL
-			</button>
+			<div class="w-40 flex justify-between">
+				<button
+					class="submit-button"
+					@click="goHome"
+				>
+					CANCEL
+				</button>
+				<button
+					:disabled="!formCompleted"
+					class="submit-button"
+					@click="makeRoom"
+				>
+					ADD ROOM
+				</button>
+			</div>
 		</div>
 	</div>
 </template>
@@ -114,7 +118,9 @@ export default {
 			// this.$router.push({ path: '/room', query: {roomId: ._id} }) todo i want to make so that it goes directly to the room
 			this.$router.push({path: '/'})
 		},
-
+		goHome(){
+			this.$router.push({path: '/'})
+		}
 	}
 }
 </script>
@@ -153,10 +159,12 @@ export default {
 
 	.input-textbox {
 		border: solid 1px $color-cream;
-		border-radius: 2px;
+		border-radius: 3px;
 		background: none;
 		width: 250px;
 		height: 50px;
+		color: $color-cream;
+		text-align: center;
 
 	}
 
@@ -172,10 +180,36 @@ export default {
 
 	.input-field__name {
 		margin-bottom: 7px;
+		font-size: 3rem;
 	}
 
 	.submit-button {
+		width: 130px;
+		height: 60px;
+		background: #6f6f87;
+		font-size: 2rem;
+		color: $color-cream;
+		font-weight: bold;
+		text-align: center;
+		border: 1px solid #4a4e69;
+		border-radius: 3px;
+		cursor: pointer;
+	}
 
+	/*todo i need to fix this*/
+	form {
+		height: 70%;
+	}
+
+	.room-type__text {
+		font-size: 1.5rem;
+		font-weight: 200;
+		text-align: center;
+		color: $color-cream;
+		width: 255px;
+		height: 45px;
+		padding: 0;
+		margin: 0;
 	}
 
 
